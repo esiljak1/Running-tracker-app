@@ -1,10 +1,10 @@
-package unsa.ba.zavrsnirad_esiljak1
+package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
 
 // TODO: Rename parameter arguments, choose names that match

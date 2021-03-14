@@ -4,4 +4,4 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="unsa.ba.zavrsnirad_esiljak1.FirstFragment" />
+    tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.FirstFragment" />

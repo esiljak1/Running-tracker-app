@@ -1,4 +1,4 @@
-package unsa.ba.zavrsnirad_esiljak1
+package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.os.Bundle
 import android.view.LayoutInflater

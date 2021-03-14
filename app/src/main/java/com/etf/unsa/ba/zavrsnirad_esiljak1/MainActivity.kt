@@ -1,4 +1,4 @@
-package unsa.ba.zavrsnirad_esiljak1
+package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.ba.zavrsnirad_esiljak1.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -42,9 +43,10 @@ class MainActivity : AppCompatActivity() {
         startup = fm.findFragmentByTag("startup")
 
         if(startup == null){
-
+            startup = FirstFragment()
+            fm.beginTransaction().replace(R.id.view, startup as FirstFragment, "startup").commit()
         }else{
-
+            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
 //        tv_lat = findViewById(R.id.tv_lat)
