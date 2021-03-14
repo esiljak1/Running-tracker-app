@@ -3,15 +3,18 @@ package unsa.ba.zavrsnirad_esiljak1
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
-import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,37 +31,49 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationCallback: LocationCallback
     private lateinit var previousLocation: Location
 
+    private var startup: Fragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tv_lat = findViewById(R.id.tv_lat)
-        tv_long = findViewById(R.id.tv_long)
-        tv_distance = findViewById(R.id.tv_distance)
+        val fm = supportFragmentManager
 
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult) {
-                super.onLocationResult(p0)
+        startup = fm.findFragmentByTag("startup")
 
-                val currentLocation = p0.lastLocation
+        if(startup == null){
 
-                if(abs(currentLocation.latitude - previousLocation.latitude) > EPS || abs(currentLocation.longitude - previousLocation.longitude) > EPS){
-                    val distance: Float = currentLocation.distanceTo(previousLocation)
-                    totalDistance += distance
-                }
+        }else{
 
-                updateUIValues(currentLocation)
-            }
         }
 
-        locationRequest = LocationRequest()
-        locationRequest.interval = 1000 * 30
-        locationRequest.fastestInterval = 1000 * 5
-
-        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-
-        updateGPS()
-        startLocationUpdates()
+//        tv_lat = findViewById(R.id.tv_lat)
+//        tv_long = findViewById(R.id.tv_long)
+//        tv_distance = findViewById(R.id.tv_distance)
+//
+//        locationCallback = object : LocationCallback() {
+//            override fun onLocationResult(p0: LocationResult) {
+//                super.onLocationResult(p0)
+//
+//                val currentLocation = p0.lastLocation
+//
+//                if(abs(currentLocation.latitude - previousLocation.latitude) > EPS || abs(currentLocation.longitude - previousLocation.longitude) > EPS){
+//                    val distance: Float = currentLocation.distanceTo(previousLocation)
+//                    totalDistance += distance
+//                }
+//
+//                updateUIValues(currentLocation)
+//            }
+//        }
+//
+//        locationRequest = LocationRequest()
+//        locationRequest.interval = 1000 * 30
+//        locationRequest.fastestInterval = 1000 * 5
+//
+//        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+//
+//        updateGPS()
+//        startLocationUpdates()
     }
 
     private fun updateGPS(){
