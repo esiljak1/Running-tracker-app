@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
@@ -23,21 +24,19 @@ import com.google.android.gms.maps.model.MarkerOptions
 class FirstFragment : Fragment() {
 
     private lateinit var mMap: GoogleMap
+    private val onClick = View.OnClickListener{
+        val fragment = RunningFragment()
+        val fm = activity!!.supportFragmentManager
+
+        fm.beginTransaction().replace(R.id.view, fragment, "running").commit()
+    }
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         println("Ovdje")
         mMap = googleMap
     }
     private lateinit var locationListener: LocationListener
     private lateinit var locationManager: LocationManager
+    private lateinit var button: Button
 
     private val MIN_TIME: Long = 1000
     private val MIN_DIST: Float = 5f
@@ -48,7 +47,12 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PackageManager.PERMISSION_GRANTED)
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        val view =  inflater.inflate(R.layout.fragment_first, container, false)
+        button = view.findViewById(R.id.btn_run)
+
+        button.setOnClickListener(onClick)
+
+        return view
     }
 
 
