@@ -70,14 +70,6 @@ class RunningFragment : Fragment() {
         updateGPS()
         startLocationUpdates()
 
-//        timer.scheduleAtFixedRate(object : TimerTask(){
-//            override fun run() {
-//                elapsedTimeSeconds++
-//                tv_time.text = elapsedTimeSeconds.toString()
-//            }
-//
-//        }, 1000, 1000)
-
         startTime = System.currentTimeMillis()
 
         handler = Handler()
