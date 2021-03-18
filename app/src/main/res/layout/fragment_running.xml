@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.103" />
 
     <ImageButton
-        android:id="@+id/startBtn"
+        android:id="@+id/start_btn"
         android:layout_width="166dp"
         android:layout_height="138dp"
         android:adjustViewBounds="true"
@@ -89,7 +89,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822"
+        app:layout_constraintVertical_bias="0.78"
         app:srcCompat="@drawable/play_img" />
 
     <TextView
@@ -139,6 +139,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.942" />
+
+    <ImageButton
+        android:id="@+id/pause_btn"
+        android:layout_width="166dp"
+        android:layout_height="137dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/pause_btn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.779" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -24,12 +25,16 @@ class RunningFragment : Fragment() {
     private val EPS: Double = 0.001
     private var totalDistance: Double = 0.0
     private var startTime: Long = 0
+    private var startOfPauseTime: Long = 0
+    private var durationOfPauseTime: Long = 0
 
     private lateinit var tv_time: TextView
     private lateinit var tv_speed: TextView
     private lateinit var tv_latitude: TextView
     private lateinit var tv_longitude: TextView
     private lateinit var tv_distance: TextView
+    private lateinit var start_btn: ImageButton
+    private lateinit var pause_btn: ImageButton
 
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -37,6 +42,27 @@ class RunningFragment : Fragment() {
     private lateinit var previousLocation: Location
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
+
+    private val startRunListener =  object : View.OnClickListener{
+        override fun onClick(v: View?) {
+            start_btn.visibility = View.GONE
+            pause_btn.visibility = View.VISIBLE
+
+            durationOfPauseTime = System.currentTimeMillis() - startOfPauseTime
+
+            handler.postDelayed(runnable, 0)
+        }
+    }
+    private val pauseRunListener = object : View.OnClickListener{
+        override fun onClick(v: View?) {
+            pause_btn.visibility = View.GONE
+            start_btn.visibility = View.VISIBLE
+
+            startOfPauseTime = System.currentTimeMillis()
+
+            handler.removeCallbacks(runnable)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_running, container, false)
@@ -46,6 +72,8 @@ class RunningFragment : Fragment() {
         tv_latitude = view.findViewById(R.id.tv_latitude)
         tv_longitude = view.findViewById(R.id.tv_longitude)
         tv_distance = view.findViewById(R.id.tv_distance)
+        start_btn = view.findViewById(R.id.start_btn)
+        pause_btn = view.findViewById(R.id.pause_btn)
 
         locationCallback = object : LocationCallback(){
             override fun onLocationResult(p0: LocationResult) {
@@ -71,19 +99,21 @@ class RunningFragment : Fragment() {
         startLocationUpdates()
 
         startTime = System.currentTimeMillis()
+        startOfPauseTime = System.currentTimeMillis()
 
         handler = Handler()
         runnable = object : Runnable{
             override fun run() {
-                val millis: Long = System.currentTimeMillis() - startTime
+                val millis: Long = System.currentTimeMillis() - startTime - durationOfPauseTime
                 val seconds: Int = ((millis / 1000) % 60).toInt()
 
                 tv_time.text = seconds.toString()
-                handler.postDelayed(this, 500)
+                handler.postDelayed(this, 1000)
             }
         }
 
-        handler.postDelayed(runnable, 0)
+        start_btn.setOnClickListener(startRunListener)
+        pause_btn.setOnClickListener(pauseRunListener)
 
         return view
     }
