@@ -24,9 +24,7 @@ class RunningFragment : Fragment() {
     private val PERMISSION_FINE_LOCATION: Int = 99
     private val EPS: Double = 0.001
     private var totalDistance: Double = 0.0
-    private var startTime: Long = 0
-    private var startOfPauseTime: Long = 0
-    private var durationOfPauseTime: Long = 0
+    private var elapsedTime: Long = 0
 
     private lateinit var tv_time: TextView
     private lateinit var tv_speed: TextView
@@ -48,8 +46,6 @@ class RunningFragment : Fragment() {
             start_btn.visibility = View.GONE
             pause_btn.visibility = View.VISIBLE
 
-            durationOfPauseTime = System.currentTimeMillis() - startOfPauseTime
-
             handler.postDelayed(runnable, 0)
         }
     }
@@ -57,8 +53,6 @@ class RunningFragment : Fragment() {
         override fun onClick(v: View?) {
             pause_btn.visibility = View.GONE
             start_btn.visibility = View.VISIBLE
-
-            startOfPauseTime = System.currentTimeMillis()
 
             handler.removeCallbacks(runnable)
         }
@@ -98,16 +92,15 @@ class RunningFragment : Fragment() {
         updateGPS()
         startLocationUpdates()
 
-        startTime = System.currentTimeMillis()
-        startOfPauseTime = System.currentTimeMillis()
-
         handler = Handler()
         runnable = object : Runnable{
             override fun run() {
-                val millis: Long = System.currentTimeMillis() - startTime - durationOfPauseTime
-                val seconds: Int = ((millis / 1000) % 60).toInt()
+                val seconds: Int = (elapsedTime % 60).toInt()
+                val minutes: Int = (elapsedTime / 60).toInt()
 
-                tv_time.text = seconds.toString()
+                tv_time.text = String.format("%02d:%02d", minutes, seconds)
+
+                elapsedTime++
                 handler.postDelayed(this, 1000)
             }
         }
