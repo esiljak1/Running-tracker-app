@@ -33,6 +33,7 @@ class RunningFragment : Fragment() {
     private lateinit var tv_distance: TextView
     private lateinit var start_btn: ImageButton
     private lateinit var pause_btn: ImageButton
+    private lateinit var stop_btn: ImageButton
 
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -45,6 +46,7 @@ class RunningFragment : Fragment() {
         override fun onClick(v: View?) {
             start_btn.visibility = View.GONE
             pause_btn.visibility = View.VISIBLE
+            stop_btn.visibility = View.VISIBLE
 
             handler.postDelayed(runnable, 0)
         }
@@ -52,10 +54,21 @@ class RunningFragment : Fragment() {
     private val pauseRunListener = object : View.OnClickListener{
         override fun onClick(v: View?) {
             pause_btn.visibility = View.GONE
+            //mozda treba sklonut stop dugme
             start_btn.visibility = View.VISIBLE
 
             handler.removeCallbacks(runnable)
         }
+    }
+
+    private val stopRunListener = object : View.OnClickListener{
+        override fun onClick(v: View?) {
+            //otvara se dialog box gdje pita da li korisnik zeli zavrsiti trcanje
+            //korisnik zeli zavrsiti trcanje
+                //otvaranje novog fragmenta za rezultate trcanja gdje se i spremaju rezultati trcanja
+            println("Stop clicked")
+        }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -68,6 +81,7 @@ class RunningFragment : Fragment() {
         tv_distance = view.findViewById(R.id.tv_distance)
         start_btn = view.findViewById(R.id.start_btn)
         pause_btn = view.findViewById(R.id.pause_btn)
+        stop_btn = view.findViewById(R.id.stop_btn)
 
         locationCallback = object : LocationCallback(){
             override fun onLocationResult(p0: LocationResult) {
@@ -107,6 +121,7 @@ class RunningFragment : Fragment() {
 
         start_btn.setOnClickListener(startRunListener)
         pause_btn.setOnClickListener(pauseRunListener)
+        stop_btn.setOnClickListener(stopRunListener)
 
         return view
     }

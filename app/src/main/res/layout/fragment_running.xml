@@ -104,7 +104,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.78"
-        app:srcCompat="@drawable/play_img" />
+        app:srcCompat="@drawable/ic_baseline_play_circle_outline_24" />
 
     <TextView
         android:id="@+id/textView6"
@@ -161,14 +161,30 @@
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/pause_btn"
+        android:src="@drawable/ic_baseline_pause_circle_outline_24"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.779" />
+        app:layout_constraintVertical_bias="0.781" />
+
+    <ImageButton
+        android:id="@+id/stop_btn"
+        android:layout_width="166dp"
+        android:layout_height="137dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_baseline_stop_circle_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.78" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
