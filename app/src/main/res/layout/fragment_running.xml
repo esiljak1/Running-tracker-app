@@ -5,70 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.RunningFragment"
-    android:background="#fcdf03">
+    android:background="#fff700">
 
     <TextView
         android:id="@+id/tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/soy_regular"
         android:text="1.01"
-        android:textSize="32pt"
         android:textColor="@android:color/black"
+        android:textSize="40pt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.302" />
+        app:layout_constraintVertical_bias="0.804" />
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/soy_regular"
         android:text="00:00"
         android:textColor="@android:color/black"
         android:textSize="16pt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <TextView
         android:id="@+id/tv_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/soy_regular"
         android:text="2.5"
         android:textColor="@android:color/black"
+        android:textStyle="bold"
         android:textSize="16pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/soy_regular"
         android:text="m/s"
+        android:textStyle="bold"
         android:textColor="@android:color/black"
         android:textSize="14pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.991"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Speed"
+        android:fontFamily="@font/soy_regular"
         android:textColor="@android:color/black"
+        android:textStyle="bold"
         android:textSize="12pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,30 +90,32 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/soy_regular"
         android:text="Time"
+        android:textStyle="bold"
         android:textColor="@android:color/black"
         android:textSize="12pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.103" />
 
     <ImageButton
         android:id="@+id/start_btn"
-        android:layout_width="166dp"
-        android:layout_height="138dp"
+        android:layout_width="239dp"
+        android:layout_height="207dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78"
-        app:srcCompat="@drawable/ic_baseline_play_circle_outline_24" />
+        app:layout_constraintVertical_bias="0.362"
+        app:srcCompat="@drawable/play_img" />
 
     <TextView
         android:id="@+id/textView6"
@@ -156,35 +167,35 @@
 
     <ImageButton
         android:id="@+id/pause_btn"
-        android:layout_width="166dp"
-        android:layout_height="137dp"
+        android:layout_width="199dp"
+        android:layout_height="177dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_baseline_pause_circle_outline_24"
+        android:src="@drawable/pause_img"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781" />
+        app:layout_constraintVertical_bias="0.371" />
 
     <ImageButton
         android:id="@+id/stop_btn"
-        android:layout_width="166dp"
-        android:layout_height="137dp"
+        android:layout_width="112dp"
+        android:layout_height="89dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_baseline_stop_circle_24"
+        android:src="@drawable/stop_img"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintHorizontal_bias="0.946"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78" />
+        app:layout_constraintVertical_bias="0.576" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
