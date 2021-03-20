@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapFragment : Fragment() {
 
     private val PERMISSION_FINE_LOCATION: Int = 99
+    private val ZOOM_LEVEL: Float = 19.5f
 
     private lateinit var mMap: GoogleMap
     private val onClick = View.OnClickListener{
@@ -80,6 +81,6 @@ class MapFragment : Fragment() {
         val currentLocation = LatLng(p0.latitude, p0.longitude)
 
         mMap.addMarker(MarkerOptions().position(currentLocation))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL))
     }
 }
