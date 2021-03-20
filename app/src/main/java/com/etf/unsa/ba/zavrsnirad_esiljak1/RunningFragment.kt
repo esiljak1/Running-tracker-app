@@ -43,8 +43,10 @@ class RunningFragment : Fragment() {
     private lateinit var runnable: Runnable
 
     private val startRunListener = View.OnClickListener {
-        if(isLocked)
+        if(isLocked) {
+            Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
+        }
 
         start_btn.visibility = View.GONE
         pause_btn.visibility = View.VISIBLE
@@ -54,8 +56,10 @@ class RunningFragment : Fragment() {
         handler.postDelayed(runnable, 0)
     }
     private val pauseRunListener = View.OnClickListener {
-        if(isLocked)
+        if(isLocked) {
+            Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
+        }
 
         pause_btn.visibility = View.GONE
         start_btn.visibility = View.VISIBLE
@@ -72,6 +76,10 @@ class RunningFragment : Fragment() {
     }
 
     private val stopRunListener = View.OnClickListener {
+        if(isLocked) {
+            Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
+            return@OnClickListener
+        }
         //otvara se dialog box gdje pita da li korisnik zeli zavrsiti trcanje
         //korisnik zeli zavrsiti trcanje
             //otvaranje novog fragmenta za rezultate trcanja gdje se i spremaju rezultati trcanja
