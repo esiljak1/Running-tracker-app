@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.OnSuccessListener
 class RunningFragment : Fragment() {
 
     private val PERMISSION_FINE_LOCATION: Int = 99
-    private val EPS: Double = 0.001
     private var totalDistance: Double = 0.0
     private var elapsedTime: Long = 0
     private var isStopped = true
@@ -42,34 +41,27 @@ class RunningFragment : Fragment() {
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
 
-    private val startRunListener =  object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            start_btn.visibility = View.GONE
-            pause_btn.visibility = View.VISIBLE
-            stop_btn.visibility = View.VISIBLE
-            isStopped = false
+    private val startRunListener = View.OnClickListener {
+        start_btn.visibility = View.GONE
+        pause_btn.visibility = View.VISIBLE
+        stop_btn.visibility = View.VISIBLE
+        isStopped = false
 
-            handler.postDelayed(runnable, 0)
-        }
+        handler.postDelayed(runnable, 0)
     }
-    private val pauseRunListener = object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            pause_btn.visibility = View.GONE
-            start_btn.visibility = View.VISIBLE
-            isStopped = true
+    private val pauseRunListener = View.OnClickListener {
+        pause_btn.visibility = View.GONE
+        start_btn.visibility = View.VISIBLE
+        isStopped = true
 
-            handler.removeCallbacks(runnable)
-        }
+        handler.removeCallbacks(runnable)
     }
 
-    private val stopRunListener = object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            //otvara se dialog box gdje pita da li korisnik zeli zavrsiti trcanje
-            //korisnik zeli zavrsiti trcanje
-                //otvaranje novog fragmenta za rezultate trcanja gdje se i spremaju rezultati trcanja
-            println("Stop clicked")
-        }
-
+    private val stopRunListener = View.OnClickListener {
+        //otvara se dialog box gdje pita da li korisnik zeli zavrsiti trcanje
+        //korisnik zeli zavrsiti trcanje
+            //otvaranje novog fragmenta za rezultate trcanja gdje se i spremaju rezultati trcanja
+        println("Stop clicked")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -111,10 +103,16 @@ class RunningFragment : Fragment() {
         handler = Handler()
         runnable = object : Runnable{
             override fun run() {
-                val seconds: Int = (elapsedTime % 60).toInt()
-                val minutes: Int = (elapsedTime / 60).toInt()
+                val seconds = (elapsedTime % 60).toInt()
+                var minutes = (elapsedTime / 60).toInt()
+                val hours = minutes / 60
+                minutes %= 60
 
-                tv_time.text = String.format("%02d:%02d", minutes, seconds)
+                if(hours != 0){
+                    tv_time.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                }else{
+                    tv_time.text = String.format("%02d:%02d", minutes, seconds)
+                }
 
                 elapsedTime++
                 handler.postDelayed(this, 1000)
