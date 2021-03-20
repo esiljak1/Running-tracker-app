@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
@@ -19,6 +19,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MapFragment : Fragment() {
 
@@ -36,7 +38,7 @@ class MapFragment : Fragment() {
         mMap = googleMap
     }
 
-    private lateinit var button: Button
+    private lateinit var floatingButton: FloatingActionButton
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
 
 
@@ -45,11 +47,17 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PackageManager.PERMISSION_GRANTED)
-        val view =  inflater.inflate(R.layout.fragment_first, container, false)
-        button = view.findViewById(R.id.btn_run)
+        ActivityCompat.requestPermissions(
+            activity!!,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            PackageManager.PERMISSION_GRANTED
+        )
+        val view =  inflater.inflate(R.layout.fragment_map, container, false)
+        floatingButton = view.findViewById(R.id.btn_run)
 
-        button.setOnClickListener(onClick)
+        floatingButton.scaleType = ImageView.ScaleType.FIT_CENTER
+
+        floatingButton.setOnClickListener(onClick)
         updateGPS()
 
         return view
@@ -68,12 +76,16 @@ class MapFragment : Fragment() {
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(activity)
 
         if(ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            fusedLocationProvider.lastLocation.addOnSuccessListener(activity!!
+            fusedLocationProvider.lastLocation.addOnSuccessListener(
+                activity!!
             ) { p0 ->
                 updateUIValues(p0!!)
             }
         }else{
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_FINE_LOCATION
+            )
         }
     }
 
