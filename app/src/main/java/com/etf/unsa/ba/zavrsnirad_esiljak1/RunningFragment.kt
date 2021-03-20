@@ -16,7 +16,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.OnSuccessListener
 
 
 class RunningFragment : Fragment() {
@@ -154,13 +153,11 @@ class RunningFragment : Fragment() {
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(activity)
 
         if(ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            fusedLocationProvider.lastLocation.addOnSuccessListener(activity!!, object : OnSuccessListener<Location> {
-                override fun onSuccess(p0: Location?) {
-                    previousLocation = Location(p0)
-                    updateUIValues(p0!!)
-                }
-
-            })
+            fusedLocationProvider.lastLocation.addOnSuccessListener(activity!!
+            ) { p0 ->
+                previousLocation = Location(p0)
+                updateUIValues(p0!!)
+            }
         }else{
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
         }
@@ -168,7 +165,7 @@ class RunningFragment : Fragment() {
 
     private fun updateUIValues(location: Location) {
         if(isStopped) return
-        tv_distance.text = String.format("%.2f", totalDistance)
+        tv_distance.text = String.format("%.2f", totalDistance/1000)
         tv_speed.text = String.format("%.2f", location.speed)
     }
 
@@ -197,7 +194,7 @@ class RunningFragment : Fragment() {
     }
 
     private fun unlockDialog(){
-        var builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context)
 
         builder.setTitle("Unlocking screen")
                 .setMessage("Are you sure that you want to unlock your screen")
