@@ -1,6 +1,7 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -24,15 +25,15 @@ class RunningFragment : Fragment() {
     private var totalDistance: Double = 0.0
     private var elapsedTime: Long = 0
     private var isStopped = true
+    private var isLocked = false
 
     private lateinit var tv_time: TextView
     private lateinit var tv_speed: TextView
-    private lateinit var tv_latitude: TextView
-    private lateinit var tv_longitude: TextView
     private lateinit var tv_distance: TextView
     private lateinit var start_btn: ImageButton
     private lateinit var pause_btn: ImageButton
     private lateinit var stop_btn: ImageButton
+    private lateinit var lock_btn: ImageButton
 
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -42,6 +43,9 @@ class RunningFragment : Fragment() {
     private lateinit var runnable: Runnable
 
     private val startRunListener = View.OnClickListener {
+        if(isLocked)
+            return@OnClickListener
+
         start_btn.visibility = View.GONE
         pause_btn.visibility = View.VISIBLE
         stop_btn.visibility = View.VISIBLE
@@ -50,11 +54,21 @@ class RunningFragment : Fragment() {
         handler.postDelayed(runnable, 0)
     }
     private val pauseRunListener = View.OnClickListener {
+        if(isLocked)
+            return@OnClickListener
+
         pause_btn.visibility = View.GONE
         start_btn.visibility = View.VISIBLE
         isStopped = true
 
         handler.removeCallbacks(runnable)
+    }
+
+    private val lockScreenListener = View.OnClickListener {
+        if(isLocked)
+            unlockDialog()
+        else
+            lockDialog()
     }
 
     private val stopRunListener = View.OnClickListener {
@@ -69,12 +83,11 @@ class RunningFragment : Fragment() {
 
         tv_time = view.findViewById(R.id.tv_time)
         tv_speed = view.findViewById(R.id.tv_speed)
-        tv_latitude = view.findViewById(R.id.tv_latitude)
-        tv_longitude = view.findViewById(R.id.tv_longitude)
         tv_distance = view.findViewById(R.id.tv_distance)
         start_btn = view.findViewById(R.id.start_btn)
         pause_btn = view.findViewById(R.id.pause_btn)
         stop_btn = view.findViewById(R.id.stop_btn)
+        lock_btn = view.findViewById(R.id.lock_btn)
 
         locationCallback = object : LocationCallback(){
             override fun onLocationResult(p0: LocationResult) {
@@ -122,6 +135,7 @@ class RunningFragment : Fragment() {
         start_btn.setOnClickListener(startRunListener)
         pause_btn.setOnClickListener(pauseRunListener)
         stop_btn.setOnClickListener(stopRunListener)
+        lock_btn.setOnClickListener(lockScreenListener)
 
         return view
     }
@@ -144,8 +158,6 @@ class RunningFragment : Fragment() {
 
     private fun updateUIValues(location: Location) {
         if(isStopped) return
-        tv_latitude.text = String.format("%.2f", location.latitude)
-        tv_longitude.text = String.format("%.2f", location.longitude)
         tv_distance.text = String.format("%.2f", totalDistance)
         tv_speed.text = String.format("%.2f", location.speed)
     }
@@ -157,6 +169,36 @@ class RunningFragment : Fragment() {
         }
 
         fusedLocationProvider.requestLocationUpdates(locationRequest, locationCallback, null)
+    }
+
+    private fun lockDialog(){
+        var builder = AlertDialog.Builder(context)
+
+        builder.setTitle("Locking screen")
+                .setMessage("Are you sure that you want to lock your screen")
+                .setPositiveButton("Yes") { dialog, which ->
+                                                    isLocked = true
+                                                    lock_btn.setBackgroundResource(R.drawable.ic_baseline_lock_24)
+                                                }
+                .setNegativeButton("No") {dialog, which ->
+                                                    isLocked = false
+                                                }
+                .show()
+    }
+
+    private fun unlockDialog(){
+        var builder = AlertDialog.Builder(context)
+
+        builder.setTitle("Unlocking screen")
+                .setMessage("Are you sure that you want to unlock your screen")
+                .setPositiveButton("Yes") { dialog, which ->
+                                                    isLocked = false
+                                                    lock_btn.setBackgroundResource(R.drawable.ic_baseline_lock_open_24)
+                                                }
+                .setNegativeButton("No") {dialog, which ->
+                                                    isLocked = true
+                                                }
+                .show()
     }
 
     override fun onRequestPermissionsResult(
