@@ -89,8 +89,8 @@ class MainActivity : AppCompatActivity() {
         startup = fm.findFragmentByTag("startup")
 
         if(startup == null){
-            startup = FirstFragment()
-            fm.beginTransaction().replace(R.id.view, startup as FirstFragment, "startup").commit()
+            startup = MapFragment()
+            fm.beginTransaction().replace(R.id.view, startup as MapFragment, "startup").commit()
         }else{
             fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }

@@ -104,8 +104,8 @@
 
     <ImageButton
         android:id="@+id/start_btn"
-        android:layout_width="239dp"
-        android:layout_height="207dp"
+        android:layout_width="214dp"
+        android:layout_height="179dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"

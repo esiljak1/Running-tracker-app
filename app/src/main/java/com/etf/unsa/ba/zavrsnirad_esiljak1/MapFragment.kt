@@ -1,11 +1,8 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.Manifest
-import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +11,8 @@ import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,7 +20,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class FirstFragment : Fragment() {
+class MapFragment : Fragment() {
+
+    private val PERMISSION_FINE_LOCATION: Int = 99
 
     private lateinit var mMap: GoogleMap
     private val onClick = View.OnClickListener{
@@ -31,15 +32,12 @@ class FirstFragment : Fragment() {
         fm.beginTransaction().replace(R.id.view, fragment, "running").commit()
     }
     private val callback = OnMapReadyCallback { googleMap ->
-        println("Ovdje")
         mMap = googleMap
     }
-    private lateinit var locationListener: LocationListener
-    private lateinit var locationManager: LocationManager
-    private lateinit var button: Button
 
-    private val MIN_TIME: Long = 1000
-    private val MIN_DIST: Float = 5f
+    private lateinit var button: Button
+    private lateinit var fusedLocationProvider: FusedLocationProviderClient
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +49,7 @@ class FirstFragment : Fragment() {
         button = view.findViewById(R.id.btn_run)
 
         button.setOnClickListener(onClick)
+        updateGPS()
 
         return view
     }
@@ -62,24 +61,25 @@ class FirstFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
-        locationListener = object: LocationListener{
-            override fun onLocationChanged(location: Location) {
-                println("Listener")
-                val latLng = LatLng(location.latitude, location.longitude)
-                mMap.addMarker(MarkerOptions().position(latLng).title("Marker in Sydney"))
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+    }
+
+    private fun updateGPS() {
+        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(activity)
+
+        if(ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            fusedLocationProvider.lastLocation.addOnSuccessListener(activity!!
+            ) { p0 ->
+                updateUIValues(p0!!)
             }
-
+        }else{
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
         }
+    }
 
-        locationManager = activity!!.getSystemService(LOCATION_SERVICE) as LocationManager
+    private fun updateUIValues(p0: Location) {
+        val currentLocation = LatLng(p0.latitude, p0.longitude)
 
-        println("Manager: " + locationManager)
-
-        if (ActivityCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            println("Nemam prava")
-            return
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener)
+        mMap.addMarker(MarkerOptions().position(currentLocation))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
     }
 }
