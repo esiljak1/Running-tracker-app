@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import com.ba.zavrsnirad_esiljak1.R
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnSuccessListener
-import kotlin.math.abs
 
 
 class RunningFragment : Fragment() {
@@ -25,6 +24,7 @@ class RunningFragment : Fragment() {
     private val EPS: Double = 0.001
     private var totalDistance: Double = 0.0
     private var elapsedTime: Long = 0
+    private var isStopped = true
 
     private lateinit var tv_time: TextView
     private lateinit var tv_speed: TextView
@@ -47,6 +47,7 @@ class RunningFragment : Fragment() {
             start_btn.visibility = View.GONE
             pause_btn.visibility = View.VISIBLE
             stop_btn.visibility = View.VISIBLE
+            isStopped = false
 
             handler.postDelayed(runnable, 0)
         }
@@ -54,8 +55,8 @@ class RunningFragment : Fragment() {
     private val pauseRunListener = object : View.OnClickListener{
         override fun onClick(v: View?) {
             pause_btn.visibility = View.GONE
-            //mozda treba sklonut stop dugme
             start_btn.visibility = View.VISIBLE
+            isStopped = true
 
             handler.removeCallbacks(runnable)
         }
@@ -88,9 +89,10 @@ class RunningFragment : Fragment() {
                 super.onLocationResult(p0)
 
                 val currentLocation = p0.lastLocation
-                if(abs(currentLocation.latitude - previousLocation.latitude) > EPS || abs(currentLocation.longitude - previousLocation.longitude) > EPS){
-                    val distance: Float = currentLocation.distanceTo(previousLocation)
+                val distance: Float = currentLocation.distanceTo(previousLocation)
+                if(distance >= 10){
                     totalDistance += distance
+                    previousLocation = currentLocation
                 }
 
                 updateUIValues(currentLocation)
@@ -143,6 +145,7 @@ class RunningFragment : Fragment() {
     }
 
     private fun updateUIValues(location: Location) {
+        if(isStopped) return
         tv_latitude.text = String.format("%.2f", location.latitude)
         tv_longitude.text = String.format("%.2f", location.longitude)
         tv_distance.text = String.format("%.2f", totalDistance)
