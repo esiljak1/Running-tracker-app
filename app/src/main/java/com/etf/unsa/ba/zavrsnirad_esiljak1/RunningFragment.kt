@@ -73,6 +73,8 @@ class RunningFragment : Fragment() {
             unlockDialog()
         else
             lockDialog()
+
+        (activity as MainActivity).delayedHide(100)
     }
 
     private val stopRunListener = View.OnClickListener {
