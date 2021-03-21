@@ -81,10 +81,21 @@ class RunningFragment : Fragment() {
             Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
-        //otvara se dialog box gdje pita da li korisnik zeli zavrsiti trcanje
-        //korisnik zeli zavrsiti trcanje
-            //otvaranje novog fragmenta za rezultate trcanja gdje se i spremaju rezultati trcanja
-        println("Stop clicked")
+
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle("Ending workout")
+            .setMessage("Are you sure that you want to end your workout")
+            .setPositiveButton("Yes") { dialog, which ->
+                val runDetailFragment = RunDetailFragment()
+
+                activity!!.supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
+            }
+            .setNegativeButton("No") {dialog, which ->
+            }
+            .show()
+
+        (activity as MainActivity).delayedHide(100)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
