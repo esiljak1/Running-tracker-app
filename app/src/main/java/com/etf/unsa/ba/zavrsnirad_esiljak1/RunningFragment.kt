@@ -12,13 +12,13 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.ba.zavrsnirad_esiljak1.R
 import com.google.android.gms.location.*
 
 
-class RunningFragment : Fragment() {
+class RunningFragment : Fragment(), MapUIInterface {
 
     private val PERMISSION_FINE_LOCATION: Int = 99
     private var totalDistance: Double = 0.0
@@ -34,16 +34,14 @@ class RunningFragment : Fragment() {
     private lateinit var stop_btn: ImageButton
     private lateinit var lock_btn: ImageButton
 
-    private lateinit var fusedLocationProvider: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
     private lateinit var previousLocation: Location
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
+    private val handlerLocation = HandlerLocation.instance
 
     private val startRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -56,7 +54,7 @@ class RunningFragment : Fragment() {
     }
     private val pauseRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -73,12 +71,12 @@ class RunningFragment : Fragment() {
         else
             lockDialog()
 
-        (activity as MainActivity).delayedHide(100)
+        (activity!! as MainActivity).delayedHide(100)
     }
 
     private val stopRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(activity, "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -96,7 +94,7 @@ class RunningFragment : Fragment() {
             }
             .show()
 
-        (activity as MainActivity).delayedHide(100)
+        (activity!! as MainActivity).delayedHide(100)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -109,30 +107,6 @@ class RunningFragment : Fragment() {
         pause_btn = view.findViewById(R.id.pause_btn)
         stop_btn = view.findViewById(R.id.stop_btn)
         lock_btn = view.findViewById(R.id.lock_btn)
-
-        locationCallback = object : LocationCallback(){
-            override fun onLocationResult(p0: LocationResult) {
-                super.onLocationResult(p0)
-
-                val currentLocation = p0.lastLocation
-                val distance: Float = currentLocation.distanceTo(previousLocation)
-                if(distance >= 10){
-                    totalDistance += distance
-                    previousLocation = currentLocation
-                }
-
-                updateUIValues(currentLocation)
-            }
-        }
-
-        locationRequest = LocationRequest()
-        locationRequest.interval = 1000 * 30
-        locationRequest.fastestInterval = 1000 * 5
-
-        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-
-        updateGPS()
-        startLocationUpdates()
 
         handler = Handler()
         runnable = object : Runnable{
@@ -158,36 +132,10 @@ class RunningFragment : Fragment() {
         stop_btn.setOnClickListener(stopRunListener)
         lock_btn.setOnClickListener(lockScreenListener)
 
+        handlerLocation.ui = this
+        handlerLocation.start()
+
         return view
-    }
-
-    private fun updateGPS() {
-        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(activity)
-
-        if(ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            fusedLocationProvider.lastLocation.addOnSuccessListener(activity!!
-            ) { p0 ->
-                previousLocation = Location(p0)
-                updateUIValues(p0!!)
-            }
-        }else{
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_FINE_LOCATION)
-        }
-    }
-
-    private fun updateUIValues(location: Location) {
-        if(isStopped) return
-        tv_distance.text = String.format("%.2f", totalDistance/1000)
-        tv_speed.text = String.format("%.2f", location.speed)
-    }
-
-    private fun startLocationUpdates(){
-
-        if (ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
-
-        fusedLocationProvider.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
     private fun lockDialog(){
@@ -220,6 +168,32 @@ class RunningFragment : Fragment() {
                 .show()
     }
 
+    override fun updateUIValues(location: Location) {
+        if(isStopped) return
+        tv_distance.text = String.format("%.2f", totalDistance/1000)
+        tv_speed.text = String.format("%.2f", location.speed)
+    }
+
+    override fun postLocationCallback(locationResult: LocationResult) {
+        val currentLocation = locationResult.lastLocation
+        val distance: Float = currentLocation.distanceTo(previousLocation)
+        if(distance >= 10){
+            totalDistance += distance
+            previousLocation = currentLocation
+        }
+    }
+
+    override fun get(): FragmentActivity? {
+        return activity
+    }
+
+    override fun requestPermissions() {
+        requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_FINE_LOCATION
+        )
+    }
+
     override fun onRequestPermissionsResult(
             requestCode: Int,
             permissions: Array<out String>,
@@ -229,9 +203,9 @@ class RunningFragment : Fragment() {
 
         if(requestCode == PERMISSION_FINE_LOCATION){
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                updateGPS()
+                handlerLocation.updateGPS()
             }else{
-                Toast.makeText(activity, "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity!!, "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
                 activity!!.finish()
             }
         }
