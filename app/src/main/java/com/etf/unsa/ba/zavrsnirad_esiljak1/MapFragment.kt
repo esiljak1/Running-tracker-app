@@ -47,6 +47,8 @@ class MapFragment : Fragment() {
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
 
+            Toast.makeText(activity, "Updated location", Toast.LENGTH_SHORT).show()
+
             updateUIValues(p0.lastLocation)
         }
     }
@@ -74,6 +76,7 @@ class MapFragment : Fragment() {
         locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
 
         updateGPS()
+        startLocationUpdates()
 
         return view
     }
@@ -114,6 +117,7 @@ class MapFragment : Fragment() {
     }
 
     private fun updateUIValues(p0: Location) {
+        mMap.clear()
         val currentLocation = LatLng(p0.latitude, p0.longitude)
 
         mMap.addMarker(MarkerOptions().position(currentLocation))

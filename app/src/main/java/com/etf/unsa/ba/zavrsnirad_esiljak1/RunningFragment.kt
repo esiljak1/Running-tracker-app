@@ -87,6 +87,7 @@ class RunningFragment : Fragment() {
         builder.setTitle("Ending workout")
             .setMessage("Are you sure that you want to end your workout")
             .setPositiveButton("Yes") { dialog, which ->
+                isStopped = true
                 val runDetailFragment = RunDetailFragment()
 
                 activity!!.supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
