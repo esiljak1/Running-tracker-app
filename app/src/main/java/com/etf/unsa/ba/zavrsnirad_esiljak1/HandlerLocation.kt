@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 
+//TODO Add restarting of app if the app just got the permission for using location
 class HandlerLocation private constructor() {
     var ui: MapUIInterface? = null
             get() {

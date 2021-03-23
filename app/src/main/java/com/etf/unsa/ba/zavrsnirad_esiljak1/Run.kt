@@ -1,8 +1,10 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
+import android.os.Parcel
+import android.os.Parcelable
 import java.time.LocalDateTime
 
-class Run(user: User, distance: Float, topSpeed: Float, durationSeconds: Long) {
+class Run(user: User, distance: Float, topSpeed: Float, durationSeconds: Long, speedSamples: ArrayList<Float>) : Parcelable {
     var user: User? = null
         get(){
             return field
@@ -23,12 +25,43 @@ class Run(user: User, distance: Float, topSpeed: Float, durationSeconds: Long) {
         get(){
             return field
         }
+    var speedSamples: ArrayList<Float>? = null
+        get() {
+            return field
+        }
+
+    constructor(parcel: Parcel) : this(
+            TODO("user"),
+            TODO("distance"),
+            TODO("topSpeed"),
+            TODO("durationSeconds"),
+            TODO("speedSamples")) {
+    }
 
     init{
         this.user = user
         this.distance = distance
         this.topSpeed = topSpeed
         this.durationSeconds = durationSeconds
+        this.speedSamples = speedSamples
         this.endOfTheRun = LocalDateTime.now()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Run> {
+        override fun createFromParcel(parcel: Parcel): Run {
+            return Run(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Run?> {
+            return arrayOfNulls(size)
+        }
     }
 }

@@ -88,6 +88,11 @@ class RunningFragment : Fragment(), MapUIInterface {
             .setPositiveButton("Yes") { dialog, which ->
                 isStopped = true
                 val runDetailFragment = RunDetailFragment()
+                val bundle = Bundle()
+
+                //TODO Add the creation of Run object from the info gathered during the run
+                bundle.putParcelable("run", Run(User(null, "esiljak1", "esiljak1@etf.unsa.ba"), 4.43f, 10.2f, 2500, arrayListOf(2f, 5f, 8f, 6f, 7.5f, 7f, 3.45f)))
+                runDetailFragment.arguments = bundle
 
                 activity!!.supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
             }
