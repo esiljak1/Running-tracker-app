@@ -2,7 +2,7 @@ package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import java.util.*
 
-class User {
+class User(uuid: UUID, userName: String, mail: String) {
     var uuid: UUID? = null
         get() {
             return field
@@ -11,14 +11,14 @@ class User {
         get(){
             return field
         }
-        set(value) {
-            field = value
-        }
     var mail: String = ""
         get(){
             return field
         }
-        set(value) {
-            field = value
-        }
+
+    init {
+        this.uuid = uuid
+        this.userName = userName
+        this.mail = mail
+    }
 }
