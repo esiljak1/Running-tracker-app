@@ -44,10 +44,11 @@ class HandlerLocation private constructor() {
             fusedLocationProvider.lastLocation.addOnSuccessListener(
                     ui!!.get()!!
             ) { p0 ->
-                ui!!.updateUIValues(p0!!)
+                if(p0 != null)
+                    ui!!.updateUIValues(p0)
             }
         }else{
-            ui!!.requestPermissions()
+            ui!!.permissions()
         }
     }
 

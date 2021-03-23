@@ -10,5 +10,5 @@ interface MapUIInterface {
         return
     }
     fun get(): FragmentActivity?
-    fun requestPermissions()
+    fun permissions()
 }

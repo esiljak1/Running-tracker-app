@@ -21,6 +21,7 @@ import com.google.android.gms.location.*
 class RunningFragment : Fragment(), MapUIInterface {
 
     private val PERMISSION_FINE_LOCATION: Int = 99
+    private val TO_KMPH = 3.6
     private var totalDistance: Double = 0.0
     private var elapsedTime: Long = 0
     private var isStopped = true
@@ -171,7 +172,7 @@ class RunningFragment : Fragment(), MapUIInterface {
     override fun updateUIValues(location: Location) {
         if(isStopped) return
         tv_distance.text = String.format("%.2f", totalDistance/1000)
-        tv_speed.text = String.format("%.2f", location.speed)
+        tv_speed.text = String.format("%.2f", location.speed * TO_KMPH)
     }
 
     override fun postLocationCallback(locationResult: LocationResult) {
@@ -187,7 +188,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         return activity
     }
 
-    override fun requestPermissions() {
+    override fun permissions() {
         requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSION_FINE_LOCATION

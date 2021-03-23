@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.ba.zavrsnirad_esiljak1.R
@@ -21,8 +20,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-//TODO Add new Interface, MapFragment and RunningFragment implement that interface. Both implement one method updateUIValues
-//TODO Add new Class and move all of the location tracking to that class
 
 class MapFragment : Fragment(), MapUIInterface {
 
@@ -34,7 +31,7 @@ class MapFragment : Fragment(), MapUIInterface {
         val fragment = RunningFragment()
         val fm = activity!!.supportFragmentManager
 
-        fm.beginTransaction().replace(R.id.view, fragment, "running").commit()
+        fm.beginTransaction().replace(R.id.view, fragment, "running").addToBackStack(null).commit()
     }
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
@@ -48,11 +45,6 @@ class MapFragment : Fragment(), MapUIInterface {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ActivityCompat.requestPermissions(
-            activity!!,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            PackageManager.PERMISSION_GRANTED
-        )
         val view =  inflater.inflate(R.layout.fragment_map, container, false)
 
         floatingButton = view.findViewById(R.id.btn_run)
@@ -84,7 +76,7 @@ class MapFragment : Fragment(), MapUIInterface {
         return activity
     }
 
-    override fun requestPermissions() {
+    override fun permissions() {
         requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSION_FINE_LOCATION
@@ -103,7 +95,6 @@ class MapFragment : Fragment(), MapUIInterface {
                 locationHandler.updateGPS()
             }else{
                 Toast.makeText(activity, "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
-                activity!!.finish()
             }
         }
     }
