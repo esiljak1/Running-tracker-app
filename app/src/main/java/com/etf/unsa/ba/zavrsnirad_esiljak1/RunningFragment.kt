@@ -20,10 +20,16 @@ import com.google.android.gms.location.*
 
 class RunningFragment : Fragment(), MapUIInterface {
 
+    private val speedSamplesList = ArrayList<Float>()
+
     private val PERMISSION_FINE_LOCATION: Int = 99
     private val TO_KMPH = 3.6
-    private var totalDistance: Double = 0.0
     private var elapsedTime: Long = 0
+
+    private var totalDistance: Float = 0f
+    private var topSpeed: Float = 0f
+    private var currentSpeed: Float = 0f
+
     private var isStopped = true
     private var isLocked = false
 
@@ -40,6 +46,9 @@ class RunningFragment : Fragment(), MapUIInterface {
     private lateinit var runnable: Runnable
     private val handlerLocation = HandlerLocation.instance
 
+    private val handlerSpeedSamples: Handler = Handler()
+    private lateinit var runnableSpeedSamples: Runnable
+
     private val startRunListener = View.OnClickListener {
         if(isLocked) {
             Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
@@ -52,6 +61,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         isStopped = false
 
         handler.postDelayed(runnable, 0)
+        handlerSpeedSamples.postDelayed(runnableSpeedSamples, 0)
     }
     private val pauseRunListener = View.OnClickListener {
         if(isLocked) {
@@ -64,6 +74,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         isStopped = true
 
         handler.removeCallbacks(runnable)
+        handlerSpeedSamples.removeCallbacks(runnableSpeedSamples)
     }
 
     private val lockScreenListener = View.OnClickListener {
@@ -90,8 +101,8 @@ class RunningFragment : Fragment(), MapUIInterface {
                 val runDetailFragment = RunDetailFragment()
                 val bundle = Bundle()
 
-                //TODO Add the creation of Run object from the info gathered during the run
-                bundle.putParcelable("run", Run(User(null, "esiljak1", "esiljak1@etf.unsa.ba"), 4.43f, 10.2f, 2500, arrayListOf(2f, 5f, 8f, 6f, 7.5f, 7f, 3.45f)))
+                //TODO Change the id of user for current run
+                bundle.putParcelable("run", Run(1, totalDistance, topSpeed, elapsedTime, speedSamplesList))
                 runDetailFragment.arguments = bundle
 
                 activity!!.supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
@@ -131,6 +142,13 @@ class RunningFragment : Fragment(), MapUIInterface {
                 elapsedTime++
                 handler.postDelayed(this, 1000)
             }
+        }
+
+        runnableSpeedSamples = object : Runnable{
+            override fun run() {
+                speedSamplesList.add(currentSpeed)
+            }
+
         }
 
         start_btn.setOnClickListener(startRunListener)
@@ -177,6 +195,9 @@ class RunningFragment : Fragment(), MapUIInterface {
     override fun updateUIValues(location: Location) {
         if(isStopped) return
         tv_distance.text = String.format("%.2f", totalDistance/1000)
+        currentSpeed = location.speed
+        if(currentSpeed > topSpeed)
+            topSpeed = currentSpeed
         tv_speed.text = String.format("%.2f", location.speed * TO_KMPH)
     }
 

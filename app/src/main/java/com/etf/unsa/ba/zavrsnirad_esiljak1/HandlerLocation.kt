@@ -7,6 +7,9 @@ import com.google.android.gms.location.*
 
 //TODO Add restarting of app if the app just got the permission for using location
 class HandlerLocation private constructor() {
+    private val locationInterval: Long = 5
+    private val locationFastestInterval: Long = 2
+
     var ui: MapUIInterface? = null
             get() {
                 return field
@@ -20,6 +23,8 @@ class HandlerLocation private constructor() {
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
 
+            println("Updated location: " + System.currentTimeMillis().toString())
+
             ui!!.updateUIValues(p0.lastLocation)
         }
     }
@@ -29,8 +34,8 @@ class HandlerLocation private constructor() {
     }
 
     fun start(){
-        locationRequest.interval = 1000 * 30
-        locationRequest.fastestInterval = 1000 * 5
+        locationRequest.interval = 1000 * locationInterval
+        locationRequest.fastestInterval = 1000 * locationFastestInterval
 
         locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
 
