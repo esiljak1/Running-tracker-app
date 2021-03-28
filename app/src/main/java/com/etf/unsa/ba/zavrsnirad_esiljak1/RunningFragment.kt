@@ -51,7 +51,7 @@ class RunningFragment : Fragment(), MapUIInterface {
 
     private val startRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -65,7 +65,7 @@ class RunningFragment : Fragment(), MapUIInterface {
     }
     private val pauseRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -83,12 +83,12 @@ class RunningFragment : Fragment(), MapUIInterface {
         else
             lockDialog()
 
-        (activity!! as MainActivity).delayedHide(100)
+        (requireActivity() as MainActivity).delayedHide(100)
     }
 
     private val stopRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(activity!!, "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "Locked", Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -105,13 +105,13 @@ class RunningFragment : Fragment(), MapUIInterface {
                 bundle.putParcelable("run", Run(1, totalDistance, topSpeed, elapsedTime, speedSamplesList))
                 runDetailFragment.arguments = bundle
 
-                activity!!.supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
             }
             .setNegativeButton("No") {dialog, which ->
             }
             .show()
 
-        (activity!! as MainActivity).delayedHide(100)
+        (requireActivity() as MainActivity).delayedHide(100)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -194,6 +194,10 @@ class RunningFragment : Fragment(), MapUIInterface {
 
     override fun updateUIValues(location: Location) {
         if(isStopped) return
+        if(!this::previousLocation.isInitialized){
+            previousLocation = Location(location)
+        }
+
         tv_distance.text = String.format("%.2f", totalDistance/1000)
         currentSpeed = location.speed
         if(currentSpeed > topSpeed)
@@ -206,7 +210,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         val distance: Float = currentLocation.distanceTo(previousLocation)
         if(distance >= 10){
             totalDistance += distance
-            previousLocation = currentLocation
+            previousLocation = Location(currentLocation)
         }
     }
 
@@ -232,8 +236,8 @@ class RunningFragment : Fragment(), MapUIInterface {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 handlerLocation.updateGPS()
             }else{
-                Toast.makeText(activity!!, "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
-                activity!!.finish()
+                Toast.makeText(requireActivity(), "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
             }
         }
     }
