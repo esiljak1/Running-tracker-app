@@ -22,10 +22,8 @@ class HandlerLocation private constructor() {
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
-
-            println("Updated location: " + System.currentTimeMillis().toString())
-
-            ui!!.updateUIValues(p0.lastLocation)
+            //ui!!.updateUIValues(p0.lastLocation)
+            ui!!.postLocationCallback(p0)
         }
     }
 

@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.ba.zavrsnirad_esiljak1.R
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,7 +30,7 @@ class MapFragment : Fragment(), MapUIInterface {
     private lateinit var mMap: GoogleMap
     private val onClick = View.OnClickListener{
         val fragment = RunningFragment()
-        val fm = activity!!.supportFragmentManager
+        val fm = requireActivity().supportFragmentManager
 
         fm.beginTransaction().replace(R.id.view, fragment, "running").addToBackStack(null).commit()
     }
@@ -70,6 +71,10 @@ class MapFragment : Fragment(), MapUIInterface {
 
         mMap.addMarker(MarkerOptions().position(currentLocation))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL))
+    }
+
+    override fun postLocationCallback(locationResult: LocationResult) {
+        updateUIValues(locationResult.lastLocation)
     }
 
     override fun get(): FragmentActivity?{

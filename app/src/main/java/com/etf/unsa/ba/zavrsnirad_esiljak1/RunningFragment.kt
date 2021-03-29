@@ -147,6 +147,8 @@ class RunningFragment : Fragment(), MapUIInterface {
         runnableSpeedSamples = object : Runnable{
             override fun run() {
                 speedSamplesList.add(currentSpeed)
+
+                handlerSpeedSamples.postDelayed(this, 10 * 1000)
             }
 
         }
@@ -194,9 +196,6 @@ class RunningFragment : Fragment(), MapUIInterface {
 
     override fun updateUIValues(location: Location) {
         if(isStopped) return
-        if(!this::previousLocation.isInitialized){
-            previousLocation = Location(location)
-        }
 
         tv_distance.text = String.format("%.2f", totalDistance/1000)
         currentSpeed = location.speed
@@ -206,12 +205,17 @@ class RunningFragment : Fragment(), MapUIInterface {
     }
 
     override fun postLocationCallback(locationResult: LocationResult) {
+        if(!this::previousLocation.isInitialized){
+            previousLocation = Location(locationResult.lastLocation)
+        }
+
         val currentLocation = locationResult.lastLocation
         val distance: Float = currentLocation.distanceTo(previousLocation)
         if(distance >= 10){
             totalDistance += distance
             previousLocation = Location(currentLocation)
         }
+        updateUIValues(currentLocation)
     }
 
     override fun get(): FragmentActivity? {
