@@ -26,6 +26,7 @@ class MapFragment : Fragment(), MapUIInterface {
 
     private val PERMISSION_FINE_LOCATION: Int = 99
     private val ZOOM_LEVEL: Float = 19.5f
+    private var isInitiated = false
 
     private lateinit var mMap: GoogleMap
     private val onClick = View.OnClickListener{
@@ -70,7 +71,11 @@ class MapFragment : Fragment(), MapUIInterface {
         val currentLocation = LatLng(location.latitude, location.longitude)
 
         mMap.addMarker(MarkerOptions().position(currentLocation))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL))
+
+        if(!isInitiated) {
+            isInitiated = true
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL))
+        }
     }
 
     override fun postLocationCallback(locationResult: LocationResult) {

@@ -105,6 +105,8 @@ class RunningFragment : Fragment(), MapUIInterface {
                 bundle.putParcelable("run", Run(1, totalDistance, topSpeed, elapsedTime, speedSamplesList))
                 runDetailFragment.arguments = bundle
 
+                handlerLocation.stop()
+
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
             }
             .setNegativeButton("No") {dialog, which ->
