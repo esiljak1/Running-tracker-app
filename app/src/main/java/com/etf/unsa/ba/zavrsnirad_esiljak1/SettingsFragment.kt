@@ -1,4 +1,4 @@
-package com.etf.unsa.ba.zavrsnirad_esiljak1.ui
+package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.os.Bundle
 import androidx.preference.ListPreference
