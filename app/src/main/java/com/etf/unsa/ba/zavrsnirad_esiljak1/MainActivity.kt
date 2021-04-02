@@ -6,12 +6,14 @@ import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ba.zavrsnirad_esiljak1.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -87,6 +89,9 @@ class MainActivity : AppCompatActivity() {
         // while interacting with the UI.
         findViewById<Button>(R.id.dummy_button).setOnTouchListener(delayHideTouchListener)
 
+        val button: FloatingActionButton = findViewById(R.id.logo_btn)
+        button.scaleType = ImageView.ScaleType.FIT_CENTER
+
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
 
@@ -113,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                     fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             }
-        }, 1000)
+        }, 2500)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

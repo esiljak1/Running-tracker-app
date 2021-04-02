@@ -46,6 +46,7 @@ class MapFragment : Fragment(), MapUIInterface {
         mMap = googleMap
     }
 
+    private lateinit var user: User
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var settingsButton: ImageButton
     private val locationHandler = HandlerLocation.instance
@@ -58,8 +59,7 @@ class MapFragment : Fragment(), MapUIInterface {
         val view =  inflater.inflate(R.layout.fragment_map, container, false)
 
         if(requireArguments().get("user") != null){
-            val user = requireArguments().get("user") as User
-            Toast.makeText(requireActivity(), user.uuid, Toast.LENGTH_SHORT).show()
+            user = requireArguments().get("user") as User
         }
 
         floatingButton = view.findViewById(R.id.btn_run)
@@ -71,6 +71,8 @@ class MapFragment : Fragment(), MapUIInterface {
 
         locationHandler.ui = this
         locationHandler.start()
+
+        (requireActivity() as MainActivity).delayedHide(100)
 
         return view
     }

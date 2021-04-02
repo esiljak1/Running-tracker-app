@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#1f1f1d"
     android:theme="@style/ThemeOverlay.ZavrsniRadesiljak1.FullscreenContainer"
     tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.MainActivity"
     android:id="@+id/view">
@@ -45,6 +46,17 @@
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/logo_btn"
+            android:layout_width="304dp"
+            android:layout_height="343dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#fff700"
+            android:clickable="false"
+            app:borderWidth="0dp"
+            app:srcCompat="@drawable/runner_img" />
+
     </FrameLayout>
 
 </FrameLayout>
