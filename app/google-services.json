@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "498912507323",
+    "project_id": "zavrsnirad-esiljak1",
+    "storage_bucket": "zavrsnirad-esiljak1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498912507323:android:c683d365c71d373677809e",
+        "android_client_info": {
+          "package_name": "com.example.zavrsnirad_esiljak1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498912507323-a3errk2ighjq2gjk7ab2v14gvm3vur9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzi8irPb74BHB8fhRIAK_C8pMMzZU0m4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498912507323-a3errk2ighjq2gjk7ab2v14gvm3vur9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

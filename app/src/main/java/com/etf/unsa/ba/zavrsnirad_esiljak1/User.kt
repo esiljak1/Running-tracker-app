@@ -2,10 +2,9 @@ package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.*
 
-class User(uuid: UUID?, userName: String, mail: String) : Parcelable{
-    var uuid: UUID? = null
+class User(uuid: String?, userName: String, mail: String) : Parcelable{
+    var uuid: String? = null
         get() {
             return field
         }

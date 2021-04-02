@@ -57,6 +57,11 @@ class MapFragment : Fragment(), MapUIInterface {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_map, container, false)
 
+        if(requireArguments().get("user") != null){
+            val user = requireArguments().get("user") as User
+            Toast.makeText(requireActivity(), user.uuid, Toast.LENGTH_SHORT).show()
+        }
+
         floatingButton = view.findViewById(R.id.btn_run)
         settingsButton = view.findViewById(R.id.settings_btn)
 

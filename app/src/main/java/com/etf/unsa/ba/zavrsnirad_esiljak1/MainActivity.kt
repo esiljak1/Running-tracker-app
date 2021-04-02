@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ba.zavrsnirad_esiljak1.R
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fullscreenContent: TextView
     private lateinit var fullscreenContentControls: LinearLayout
     private val hideHandler = Handler()
-    private var startup: Fragment? = null
+    private var fragment: Fragment? = null
+
+    private lateinit var mAuth: FirebaseAuth
 
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
@@ -84,16 +87,33 @@ class MainActivity : AppCompatActivity() {
         // while interacting with the UI.
         findViewById<Button>(R.id.dummy_button).setOnTouchListener(delayHideTouchListener)
 
-        val fm = supportFragmentManager
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
 
-        startup = fm.findFragmentByTag("startup")
+        Handler().postDelayed({
+            val fm = supportFragmentManager
+            if(user == null){
+                fragment = fm.findFragmentByTag("login")
+                if(fragment == null){
+                    fragment = LoginFragment()
+                    fm.beginTransaction().replace(R.id.view, fragment as LoginFragment, "login").commit()
+                }
+            }else{
+                fragment = fm.findFragmentByTag("startup")
+                if(fragment == null){
+                    fragment = MapFragment()
 
-        if(startup == null){
-            startup = MapFragment()
-            fm.beginTransaction().replace(R.id.view, startup as MapFragment, "startup").commit()
-        }else{
-            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        }
+                    val bundle = Bundle()
+                    bundle.putParcelable("user", User(user.uid, user.displayName!!, user.email!!))
+
+                    (fragment as MapFragment).arguments = bundle
+
+                    fm.beginTransaction().replace(R.id.view, fragment as MapFragment, "startup").commit()
+                }else{
+                    fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                }
+            }
+        }, 1000)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
