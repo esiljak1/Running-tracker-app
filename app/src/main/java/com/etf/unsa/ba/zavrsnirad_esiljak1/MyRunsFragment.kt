@@ -20,7 +20,16 @@ class MyRunsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recycler_view)
         fillRunList()
 
-        recyclerView.adapter = ItemAdapter(requireContext(), runList)
+        recyclerView.adapter = ItemAdapter(requireContext(), runList) { run ->
+            val fragment = RunDetailFragment()
+            val fm = requireActivity().supportFragmentManager
+
+            val bundle = Bundle()
+            bundle.putParcelable("run", run)
+
+            fragment.arguments = bundle
+            fm.beginTransaction().replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
+        }
 
         return view
     }

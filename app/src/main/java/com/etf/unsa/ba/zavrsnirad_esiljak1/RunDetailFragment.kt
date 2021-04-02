@@ -44,7 +44,7 @@ class RunDetailFragment : Fragment() {
         chart_speed_samples = view.findViewById(R.id.chart_speed_samples)
 
         if(arguments?.get("run") != null){
-            run = arguments!!.get("run") as Run
+            run = requireArguments().get("run") as Run
             setUI()
         }
 
@@ -55,7 +55,7 @@ class RunDetailFragment : Fragment() {
 
     private fun setUI(){
         tv_date.text = run.endOfTheRun.toString()
-        tv_recorded_distance.text = String.format("%.2f", run.distance)
+        tv_recorded_distance.text = String.format("%.2f", run.distanceMeters / 1000)
         tv_recorded_duration.text = formatTime(run.durationSeconds)
         tv_recorded_speed.text = String.format("%.2f", run.topSpeed)
         drawChart()

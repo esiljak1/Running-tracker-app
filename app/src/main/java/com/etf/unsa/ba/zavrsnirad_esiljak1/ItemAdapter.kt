@@ -8,10 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ba.zavrsnirad_esiljak1.R
 
-class ItemAdapter (private val context: Context, private val dataset: List<Run>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter (private val context: Context, private val dataset: List<Run>,
+                   private val listener: (Run) -> Unit) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         val textView: TextView = view.findViewById(R.id.tv_run_date)
+
+        fun bind(run: Run){
+            val date = run.endOfTheRun
+            textView.text = date!!.toLocalDate().toString()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -22,9 +28,10 @@ class ItemAdapter (private val context: Context, private val dataset: List<Run>)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset[position]
-        val date = item.endOfTheRun
-        holder.textView.text = date!!.toLocalDate().toString()
+        holder.bind(dataset[position])
+        holder.itemView.setOnClickListener{
+            listener(dataset[position])
+        }
     }
 
     override fun getItemCount() = dataset.size
