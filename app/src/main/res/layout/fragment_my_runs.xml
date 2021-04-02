@@ -5,13 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.MyRunsFragment">
 
-<!--    TODO Napraviti Adapter klasu za Run -> RecyclerView i napraviti
-        TODO xml u kojem se opisuje kako će itemi unutar view-a izgledati-->
+    <ImageButton
+        android:layout_width="95dp"
+        android:layout_height="59dp"
+        android:layout_gravity="top|start"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/settings_img" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="660dp"
+        android:layout_gravity="bottom|center"
         android:scrollbars="vertical"
         app:layoutManager="LinearLayoutManager" />
 </FrameLayout>

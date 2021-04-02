@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/fullscreenBackgroundColor"
+    android:background="@color/white"
     android:theme="@style/ThemeOverlay.ZavrsniRadesiljak1.FullscreenContainer"
     tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.MainActivity"
     android:id="@+id/view">
@@ -16,7 +16,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/dummy_content"
         android:textColor="?attr/fullscreenTextColor"
         android:textSize="50sp"
         android:textStyle="bold" />
