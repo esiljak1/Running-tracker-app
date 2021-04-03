@@ -14,7 +14,8 @@
         android:paddingBottom="10pt"
         android:text="Datum trke"
         android:fontFamily="@font/soy_regular"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="20pt"/>
+        android:textSize="20pt"
+        android:background="@android:color/transparent"/>
 </LinearLayout>

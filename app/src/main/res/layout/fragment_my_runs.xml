@@ -1,25 +1,56 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#1c1c1a"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.MyRunsFragment">
 
+    <TextView
+        android:id="@+id/tv_run_name"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/soy_regular"
+        android:text="My Runs"
+        android:textColor="@color/black"
+        android:textSize="18pt"
+        android:textStyle="bold"
+        android:paddingTop="60dp"
+        android:paddingStart="10dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.005" />
+
     <ImageButton
-        android:layout_width="95dp"
-        android:layout_height="59dp"
+        android:layout_width="61dp"
+        android:layout_height="43dp"
         android:layout_gravity="top|start"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/settings_img" />
+        android:src="@drawable/abc_vector_test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="660dp"
+        android:layout_height="556dp"
         android:layout_gravity="bottom|center"
         android:scrollbars="vertical"
-        app:layoutManager="LinearLayoutManager" />
-</FrameLayout>
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
