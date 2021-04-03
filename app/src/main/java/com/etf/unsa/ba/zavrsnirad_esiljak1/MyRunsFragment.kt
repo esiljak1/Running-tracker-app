@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ba.zavrsnirad_esiljak1.R
 
-class MyRunsFragment : Fragment() {
+class MyRunsFragment : Fragment(), DatabaseInterface {
 
-    private val runList = ArrayList<Run>()
+    private var runList = ArrayList<Run>()
 
     private lateinit var recyclerView: RecyclerView
 
@@ -18,8 +19,12 @@ class MyRunsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_my_runs, container, false)
 
         recyclerView = view.findViewById(R.id.recycler_view)
-        fillRunList()
+        FirebaseDBInteractor.instance.getMyRuns(getCurrentUser().uuid!!, this)
 
+        return view
+    }
+
+    private fun setAdapter(){
         recyclerView.adapter = ItemAdapter(requireContext(), runList) { run ->
             val fragment = RunDetailFragment()
             val fm = requireActivity().supportFragmentManager
@@ -30,17 +35,18 @@ class MyRunsFragment : Fragment() {
             fragment.arguments = bundle
             fm.beginTransaction().replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
         }
-
-        return view
     }
 
-    private fun fillRunList(){
-        runList.clear()
-        runList.add(Run(1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1000f, 10f, 2000, ArrayList()))
+    private fun getCurrentUser(): User{
+        return (requireActivity() as MainActivity).user!!
+    }
+
+    override fun onSuccess(o: Any?) {
+        runList = ArrayList(o as List<Run>)
+        setAdapter()
+    }
+
+    override fun onFailure() {
+        Toast.makeText(requireActivity(), "Failed to load myRuns", Toast.LENGTH_SHORT).show()
     }
 }

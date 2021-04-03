@@ -11,13 +11,13 @@ class FirebaseDBInteractor private constructor(){
         val instance = FirebaseDBInteractor()
     }
 
-    fun getMyRuns(uid: String){
+    fun getMyRuns(uid: String, databaseInterface: DatabaseInterface){
         database = rootNode.getReference("Runs").child(uid)
 
         database.get().addOnSuccessListener {
-            //Dio koda koji se izvrsava kada se pokupe svi podaci iz baze
+            databaseInterface.onSuccess(it.value)
         }.addOnFailureListener{
-            //Dio koda koji se izvrsava kada dodje do pogreske pri prikupljanju podataka iz baze
+            databaseInterface.onFailure()
         }
     }
 
