@@ -1,5 +1,6 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,11 @@ class RunDetailFragment : Fragment() {
         back_btn = view.findViewById(R.id.back_btn)
         chart_speed_samples = view.findViewById(R.id.chart_speed_samples)
 
+
+        //TODO provjera da li je arguments.get("post") postavljen na true, ukoliko jest provjerava se internet konekcija
+        //ukoliko nema konekcije obavještava se korisnik da se mora povezati na internet kako bi se trčanje spasilo
+        //u suprotnom se ništa ne radi jer su se u međuvremenu podaci već spasili u bazi
+
         if(arguments?.get("run") != null){
             run = requireArguments().get("run") as Run
             setUI()
@@ -84,11 +90,15 @@ class RunDetailFragment : Fragment() {
         }
 
         val lineDataSet =  LineDataSet(entries, "Data Set 1")
+        lineDataSet.color = Color.YELLOW
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(lineDataSet)
 
         val data = LineData(dataSets)
         chart_speed_samples.data = data
+        chart_speed_samples.xAxis.textColor = Color.WHITE
+        chart_speed_samples.axisLeft.textColor = Color.WHITE
+        chart_speed_samples.axisRight.textColor = Color.WHITE
     }
 
 }

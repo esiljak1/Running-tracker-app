@@ -51,6 +51,8 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
         for(item in snapshot.children){
             runList.add(item.getValue(Run::class.java)!!)
         }
+
+        runList.reverse()
         setAdapter()
     }
 
