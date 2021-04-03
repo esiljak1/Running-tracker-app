@@ -24,6 +24,6 @@ class FirebaseDBInteractor private constructor(){
     fun postRun(uid: String, run: Run){
         database = rootNode.getReference("Runs")
 
-        database.child(uid).child(run.endOfTheRun.toString()).setValue(run)
+        database.child(uid).push().setValue(run)
     }
 }

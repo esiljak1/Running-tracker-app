@@ -101,8 +101,11 @@ class RunningFragment : Fragment(), MapUIInterface {
                 val runDetailFragment = RunDetailFragment()
                 val bundle = Bundle()
 
-                //TODO Change the id of user for current run
-                bundle.putParcelable("run", Run(1, totalDistance, topSpeed, elapsedTime, speedSamplesList))
+                val thisRun = Run(totalDistance, topSpeed, elapsedTime, speedSamplesList)
+
+                FirebaseDBInteractor.instance.postRun(getCurrentUser().uuid!!, thisRun)
+
+                bundle.putParcelable("run", thisRun)
                 runDetailFragment.arguments = bundle
 
                 handlerLocation.stop()
@@ -164,6 +167,10 @@ class RunningFragment : Fragment(), MapUIInterface {
         handlerLocation.start()
 
         return view
+    }
+
+    private fun getCurrentUser(): User{
+        return (requireActivity() as MainActivity).user!!
     }
 
     private fun lockDialog(){

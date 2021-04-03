@@ -36,11 +36,11 @@ class MyRunsFragment : Fragment() {
 
     private fun fillRunList(){
         runList.clear()
-        runList.add(Run(1, 1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1, 1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1, 1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1, 1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1, 1000f, 10f, 2000, ArrayList()))
-        runList.add(Run(1, 1000f, 10f, 2000, ArrayList()))
+        runList.add(Run(1000f, 10f, 2000, ArrayList()))
+        runList.add(Run(1000f, 10f, 2000, ArrayList()))
+        runList.add(Run(1000f, 10f, 2000, ArrayList()))
+        runList.add(Run(1000f, 10f, 2000, ArrayList()))
+        runList.add(Run(1000f, 10f, 2000, ArrayList()))
+        runList.add(Run(1000f, 10f, 2000, ArrayList()))
     }
 }

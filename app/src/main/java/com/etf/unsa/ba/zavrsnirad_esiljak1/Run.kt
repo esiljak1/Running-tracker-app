@@ -4,11 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.time.LocalDateTime
 
-class Run(user: Int, distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSamples: ArrayList<Float>) : Parcelable {
-    var user: Int = 0
-        get(){
-            return field
-        }
+class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSamples: ArrayList<Float>) : Parcelable {
     var distanceMeters: Float = 0f
         get() {
             return field
@@ -31,7 +27,6 @@ class Run(user: Int, distanceMeters: Float, topSpeed: Float, durationSeconds: Lo
         }
 
     constructor(parcel: Parcel) : this(
-            TODO("user"),
             TODO("distance"),
             TODO("topSpeed"),
             TODO("durationSeconds"),
@@ -39,7 +34,6 @@ class Run(user: Int, distanceMeters: Float, topSpeed: Float, durationSeconds: Lo
     }
 
     init{
-        this.user = user
         this.distanceMeters = distanceMeters
         this.topSpeed = topSpeed
         this.durationSeconds = durationSeconds
