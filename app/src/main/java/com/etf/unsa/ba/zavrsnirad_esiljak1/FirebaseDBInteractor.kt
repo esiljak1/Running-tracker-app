@@ -3,9 +3,13 @@ package com.etf.unsa.ba.zavrsnirad_esiljak1
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class FirebaseDBInteractor {
+class FirebaseDBInteractor private constructor(){
     private val rootNode = FirebaseDatabase.getInstance()
     private lateinit var database: DatabaseReference
+
+    companion object{
+        val instance = FirebaseDBInteractor()
+    }
 
     fun getMyRuns(uid: String){
         database = rootNode.getReference("Runs").child(uid)
