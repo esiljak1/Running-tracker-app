@@ -17,7 +17,7 @@ class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSa
         get() {
             return field
         }
-    var endOfTheRun: LocalDateTime? = null
+    var endOfTheRun: String? = null
         get(){
             return field
         }
@@ -25,6 +25,8 @@ class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSa
         get() {
             return field
         }
+
+    constructor() : this(0f, 0f, 0, ArrayList())
 
     constructor(parcel: Parcel) : this(
             TODO("distance"),
@@ -38,7 +40,8 @@ class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSa
         this.topSpeed = topSpeed
         this.durationSeconds = durationSeconds
         this.speedSamples = speedSamples
-        this.endOfTheRun = LocalDateTime.now()
+        val date = LocalDateTime.now()
+        this.endOfTheRun = date.toLocalDate().toString() + "T" + String.format("%02d:%02d", date.toLocalTime().hour, date.toLocalTime().minute)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

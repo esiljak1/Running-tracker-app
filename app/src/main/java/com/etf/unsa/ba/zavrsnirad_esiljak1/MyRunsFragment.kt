@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ba.zavrsnirad_esiljak1.R
+import com.google.firebase.database.DataSnapshot
 
 class MyRunsFragment : Fragment(), DatabaseInterface {
 
@@ -41,8 +42,14 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
         return (requireActivity() as MainActivity).user!!
     }
 
-    override fun onSuccess(o: Any?) {
-        runList = ArrayList(o as List<Run>)
+    override fun onSuccess(snapshot: DataSnapshot?) {
+        if(snapshot == null) {
+            Toast.makeText(requireActivity(), "No runs found for this account", Toast.LENGTH_SHORT).show()
+            return
+        }
+        for(item in snapshot.children){
+            runList.add(item.getValue(Run::class.java)!!)
+        }
         setAdapter()
     }
 

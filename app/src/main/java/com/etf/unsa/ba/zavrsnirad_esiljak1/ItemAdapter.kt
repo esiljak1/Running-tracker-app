@@ -16,7 +16,7 @@ class ItemAdapter (private val context: Context, private val dataset: List<Run>,
 
         fun bind(run: Run){
             val date = run.endOfTheRun
-            tvDate.text = date!!.toLocalDate().toString()
+            tvDate.text = date
         }
     }
 

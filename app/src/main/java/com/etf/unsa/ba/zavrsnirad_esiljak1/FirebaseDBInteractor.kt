@@ -1,7 +1,6 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class FirebaseDBInteractor private constructor(){
     private val rootNode = FirebaseDatabase.getInstance()
@@ -14,11 +13,16 @@ class FirebaseDBInteractor private constructor(){
     fun getMyRuns(uid: String, databaseInterface: DatabaseInterface){
         database = rootNode.getReference("Runs").child(uid)
 
-        database.get().addOnSuccessListener {
-            databaseInterface.onSuccess(it.value)
-        }.addOnFailureListener{
-            databaseInterface.onFailure()
-        }
+        database.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                databaseInterface.onSuccess(snapshot)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                databaseInterface.onFailure()
+            }
+
+        })
     }
 
     fun postRun(uid: String, run: Run){
