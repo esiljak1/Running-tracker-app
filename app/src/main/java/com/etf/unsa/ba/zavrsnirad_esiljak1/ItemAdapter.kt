@@ -12,11 +12,11 @@ class ItemAdapter (private val context: Context, private val dataset: List<Run>,
                    private val listener: (Run) -> Unit) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
-        val textView: TextView = view.findViewById(R.id.tv_run_date)
+        val tvDate: TextView = view.findViewById(R.id.tv_run_date)
 
         fun bind(run: Run){
             val date = run.endOfTheRun
-            textView.text = date!!.toLocalDate().toString()
+            tvDate.text = date!!.toLocalDate().toString()
         }
     }
 

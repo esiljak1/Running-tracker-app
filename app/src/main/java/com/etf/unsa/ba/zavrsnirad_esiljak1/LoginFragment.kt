@@ -68,13 +68,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun openMapFragment(user: User){
+        (requireActivity() as MainActivity).user = user
+
         val fm = requireActivity().supportFragmentManager
         val fragment = MapFragment()
 
-        val bundle = Bundle()
-
-        bundle.putParcelable("user", user)
-        fragment.arguments = bundle
         fm.beginTransaction().replace(R.id.view, fragment).commit()
     }
 

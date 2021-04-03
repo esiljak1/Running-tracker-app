@@ -16,15 +16,19 @@ import com.ba.zavrsnirad_esiljak1.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 class MainActivity : AppCompatActivity() {
     private lateinit var fullscreenContent: TextView
     private lateinit var fullscreenContentControls: LinearLayout
     private val hideHandler = Handler()
     private var fragment: Fragment? = null
+
+    var user: User? = null
+        get(){
+            return field
+        }
+        set(value){
+            field = value
+        }
 
     private lateinit var mAuth: FirebaseAuth
 
@@ -93,23 +97,24 @@ class MainActivity : AppCompatActivity() {
         button.scaleType = ImageView.ScaleType.FIT_CENTER
 
         mAuth = FirebaseAuth.getInstance()
-        val user = mAuth.currentUser
+        val currentUser = mAuth.currentUser
 
         Handler().postDelayed({
             val fm = supportFragmentManager
-            if(user == null){
+            if(currentUser == null){
                 fragment = fm.findFragmentByTag("login")
                 if(fragment == null){
                     fragment = LoginFragment()
                     fm.beginTransaction().replace(R.id.view, fragment as LoginFragment, "login").commit()
                 }
             }else{
+                user = User(currentUser.uid, currentUser.displayName!!, currentUser.email!!)
                 fragment = fm.findFragmentByTag("startup")
                 if(fragment == null){
                     fragment = MapFragment()
 
                     val bundle = Bundle()
-                    bundle.putParcelable("user", User(user.uid, user.displayName!!, user.email!!))
+                    bundle.putParcelable("user", User(currentUser.uid, currentUser.displayName!!, currentUser.email!!))
 
                     (fragment as MapFragment).arguments = bundle
 
