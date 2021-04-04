@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -15,12 +16,20 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
     private var runList = ArrayList<Run>()
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var backButton: ImageButton
+
+    private val onClickListener =  View.OnClickListener{
+        requireActivity().onBackPressed()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_my_runs, container, false)
 
         recyclerView = view.findViewById(R.id.recycler_view)
+        backButton = view.findViewById(R.id.back_btn_my_runs)
         FirebaseDBInteractor.instance.getMyRuns(getCurrentUser().uuid!!, this)
+
+        backButton.setOnClickListener(onClickListener)
 
         return view
     }

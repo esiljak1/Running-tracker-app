@@ -13,7 +13,8 @@
         android:layout_height="150dp"
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/soy_regular"
-        android:text="The name of the run"
+        android:text="Name of the run"
+        android:clickable="false"
         android:textColor="@color/black"
         android:textSize="18pt"
         android:textStyle="bold"
@@ -135,15 +136,18 @@
 
     <ImageButton
         android:id="@+id/back_btn"
-        android:layout_width="55dp"
-        android:layout_height="37dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/abc_vector_test"
+        android:rotationY="180"
+        android:scaleType="centerInside"
+        android:src="@drawable/arrow_img"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,9 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.MapFragment" />
+        tools:context="com.etf.unsa.ba.zavrsnirad_esiljak1.MapFragment"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_run"
@@ -40,5 +42,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.024" />
+
+    <Button
+        android:id="@+id/my_runs_btn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle"
+        android:fontFamily="@font/soy_regular"
+        android:scaleType="centerInside"
+        android:text="My\nruns"
+        android:textColor="#fff700"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_run"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.774" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

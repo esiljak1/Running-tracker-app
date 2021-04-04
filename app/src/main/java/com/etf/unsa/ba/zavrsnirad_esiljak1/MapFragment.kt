@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
@@ -42,11 +43,15 @@ class MapFragment : Fragment(), MapUIInterface {
 
         fm.beginTransaction().replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
     }
+    private val settingsFragmentOnClick = View.OnClickListener {
+        Toast.makeText(requireActivity(), "Srry Nejra ovo još ne radi", Toast.LENGTH_LONG).show()
+    }
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
     }
 
-    private lateinit var floatingButton: FloatingActionButton
+    private lateinit var myRunsButton: Button
+    private lateinit var runButton: FloatingActionButton
     private lateinit var settingsButton: ImageButton
     private val locationHandler = HandlerLocation.instance
 
@@ -59,12 +64,15 @@ class MapFragment : Fragment(), MapUIInterface {
 
         Toast.makeText(requireActivity(), "Welcome " + getCurrentUser().userName, Toast.LENGTH_SHORT).show()
 
-        floatingButton = view.findViewById(R.id.btn_run)
+        runButton = view.findViewById(R.id.btn_run)
         settingsButton = view.findViewById(R.id.settings_btn)
+        myRunsButton = view.findViewById(R.id.my_runs_btn)
 
-        floatingButton.scaleType = ImageView.ScaleType.FIT_CENTER
-        floatingButton.setOnClickListener(newRunFragmentOnClick)
-        settingsButton.setOnClickListener(myRunsFragmentOnClick)
+        runButton.scaleType = ImageView.ScaleType.FIT_CENTER
+        runButton.setOnClickListener(newRunFragmentOnClick)
+
+        myRunsButton.setOnClickListener(myRunsFragmentOnClick)
+        settingsButton.setOnClickListener(settingsFragmentOnClick)
 
         locationHandler.ui = this
         locationHandler.start()

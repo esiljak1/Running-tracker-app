@@ -3,19 +3,57 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:id="@+id/run_item">
+    android:id="@+id/run_item"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_run_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingTop="10pt"
-        android:paddingBottom="10pt"
+        android:paddingBottom="5pt"
         android:text="Datum trke"
         android:fontFamily="@font/soy_regular"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="20pt"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/item_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance"
+            android:fontFamily="@font/soy_regular"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14pt"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/item_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:fontFamily="@font/soy_regular"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14pt"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd"
+            android:layout_marginEnd="5pt"
+            />
+
+    </LinearLayout>
 </LinearLayout>

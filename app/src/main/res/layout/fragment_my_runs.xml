@@ -13,6 +13,7 @@
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/soy_regular"
         android:text="My Runs"
+        android:clickable="false"
         android:textColor="@color/black"
         android:textSize="18pt"
         android:textStyle="bold"
@@ -26,19 +27,21 @@
         app:layout_constraintVertical_bias="0.005" />
 
     <ImageButton
-        android:layout_width="61dp"
-        android:layout_height="43dp"
+        android:id="@+id/back_btn_my_runs"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="top|start"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:rotationY="180"
         android:scaleType="centerInside"
-        android:src="@drawable/abc_vector_test"
+        android:src="@drawable/arrow_img"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
