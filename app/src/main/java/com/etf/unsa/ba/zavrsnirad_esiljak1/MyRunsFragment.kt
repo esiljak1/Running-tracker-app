@@ -35,6 +35,8 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
     }
 
     private fun setAdapter(){
+        if(context == null)
+            return
         recyclerView.adapter = ItemAdapter(requireContext(), runList) { run ->
             val fragment = RunDetailFragment()
             val fm = requireActivity().supportFragmentManager
