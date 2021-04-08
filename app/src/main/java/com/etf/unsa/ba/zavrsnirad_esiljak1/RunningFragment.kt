@@ -105,6 +105,7 @@ class RunningFragment : Fragment(), MapUIInterface {
 
                 FirebaseDBInteractor.instance.postRun(getCurrentUser().uuid!!, thisRun)
 
+                bundle.putBoolean("post", true)
                 bundle.putParcelable("run", thisRun)
                 runDetailFragment.arguments = bundle
 
@@ -174,7 +175,7 @@ class RunningFragment : Fragment(), MapUIInterface {
     }
 
     private fun lockDialog(){
-        var builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context)
 
         builder.setTitle("Locking screen")
                 .setMessage("Are you sure that you want to lock your screen")

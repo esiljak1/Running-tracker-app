@@ -1,5 +1,6 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,9 +50,15 @@ class RunDetailFragment : Fragment() {
         //ukoliko nema konekcije obavještava se korisnik da se mora povezati na internet kako bi se trčanje spasilo
         //u suprotnom se ništa ne radi jer su se u međuvremenu podaci već spasili u bazi
 
-        if(arguments?.get("run") != null){
+        if(requireArguments().get("run") != null){
             run = requireArguments().get("run") as Run
             setUI()
+        }
+
+        if(requireArguments().get("post") != null){
+            if(requireArguments().get("post") as Boolean && !(requireActivity() as MainActivity).isNetworkAvailable()){
+                openDialog()
+            }
         }
 
         back_btn.setOnClickListener(backListener)
@@ -99,6 +106,16 @@ class RunDetailFragment : Fragment() {
         chart_speed_samples.xAxis.textColor = Color.WHITE
         chart_speed_samples.axisLeft.textColor = Color.WHITE
         chart_speed_samples.axisRight.textColor = Color.WHITE
+    }
+
+    private fun openDialog(){
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle("You're not connected to the internet")
+                .setMessage("Please connect to the internet in order to save your run")
+                .setPositiveButton("Close") { dialog, which ->
+                }
+                .show()
     }
 
 }

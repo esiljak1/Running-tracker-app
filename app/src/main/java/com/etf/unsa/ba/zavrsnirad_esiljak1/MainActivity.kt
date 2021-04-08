@@ -1,6 +1,8 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.MotionEvent
@@ -173,6 +175,13 @@ class MainActivity : AppCompatActivity() {
     fun delayedHide(delayMillis: Int) {
         hideHandler.removeCallbacks(hideRunnable)
         hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
+    }
+
+    fun isNetworkAvailable(): Boolean{
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = cm.activeNetworkInfo
+
+        return networkInfo != null && networkInfo.isConnected
     }
 
     companion object {

@@ -42,6 +42,7 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
             val fm = requireActivity().supportFragmentManager
 
             val bundle = Bundle()
+            bundle.putBoolean("post", false)
             bundle.putParcelable("run", run)
 
             fragment.arguments = bundle
