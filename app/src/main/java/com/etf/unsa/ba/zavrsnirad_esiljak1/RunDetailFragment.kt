@@ -45,11 +45,6 @@ class RunDetailFragment : Fragment() {
         back_btn = view.findViewById(R.id.back_btn)
         chart_speed_samples = view.findViewById(R.id.chart_speed_samples)
 
-
-        //TODO provjera da li je arguments.get("post") postavljen na true, ukoliko jest provjerava se internet konekcija
-        //ukoliko nema konekcije obavještava se korisnik da se mora povezati na internet kako bi se trčanje spasilo
-        //u suprotnom se ništa ne radi jer su se u međuvremenu podaci već spasili u bazi
-
         if(requireArguments().get("run") != null){
             run = requireArguments().get("run") as Run
             setUI()

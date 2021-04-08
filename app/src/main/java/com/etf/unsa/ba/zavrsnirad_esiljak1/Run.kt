@@ -41,7 +41,7 @@ class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSa
         this.durationSeconds = durationSeconds
         this.speedSamples = speedSamples
         val date = LocalDateTime.now()
-        this.endOfTheRun = date.toLocalDate().toString() + "T" + String.format("%02d:%02d", date.toLocalTime().hour, date.toLocalTime().minute)
+        this.endOfTheRun = date.toLocalDate().toString() + " - " + timeOfDay(date)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -60,5 +60,15 @@ class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSa
         override fun newArray(size: Int): Array<Run?> {
             return arrayOfNulls(size)
         }
+    }
+
+    private fun timeOfDay(date: LocalDateTime): String{
+        if(date.hour in 5..12){
+            return "Morning run"
+        }else if(date.hour in 13..18) {
+            return "Afternoon run"
+        }
+
+        return "Evening run"
     }
 }
