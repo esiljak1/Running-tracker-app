@@ -44,7 +44,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="584dp"
         android:layout_gravity="bottom|center"
         android:scrollbars="vertical"
@@ -54,5 +54,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layoutAnimation="@anim/layout_animation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
