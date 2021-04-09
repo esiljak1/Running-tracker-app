@@ -52,6 +52,12 @@ class HandlerLocation private constructor() {
             ) { p0 ->
                 if(p0 != null)
                     ui!!.updateUIValues(p0)
+                else{
+                    //restart lokacije kod prvog pokretanja da se dobro pokupi aplikacija
+                        //moze predstavljat problem uredjajima koji nemaju pristup lokaciji, beskonacna petlja
+                    stop()
+                    start()
+                }
             }
         }else{
             ui!!.permissions()
