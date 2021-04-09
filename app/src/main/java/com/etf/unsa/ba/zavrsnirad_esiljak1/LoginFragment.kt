@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
         val fm = requireActivity().supportFragmentManager
         val fragment = MapFragment()
 
-        fm.beginTransaction().replace(R.id.view, fragment).commit()
+        fm.beginTransaction().setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_to_left).replace(R.id.view, fragment).commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

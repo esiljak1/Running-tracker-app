@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 fragment = fm.findFragmentByTag("login")
                 if(fragment == null){
                     fragment = LoginFragment()
-                    fm.beginTransaction().replace(R.id.view, fragment as LoginFragment, "login").commit()
+                    fm.beginTransaction().setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_to_left).replace(R.id.view, fragment as LoginFragment, "login").commit()
                 }
             }else{
                 user = User(currentUser.uid, currentUser.displayName!!, currentUser.email!!)
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
                     (fragment as MapFragment).arguments = bundle
 
-                    fm.beginTransaction().replace(R.id.view, fragment as MapFragment, "startup").commit()
+                    fm.beginTransaction().setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_to_left).replace(R.id.view, fragment as MapFragment, "startup").commit()
                 }else{
                     fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }

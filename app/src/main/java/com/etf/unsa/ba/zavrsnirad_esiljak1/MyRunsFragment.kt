@@ -46,7 +46,7 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
             bundle.putParcelable("run", run)
 
             fragment.arguments = bundle
-            fm.beginTransaction().replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
+            fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.view, fragment, "detail").addToBackStack(null).commit()
         }
     }
 

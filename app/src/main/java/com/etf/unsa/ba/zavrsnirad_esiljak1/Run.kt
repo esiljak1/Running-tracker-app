@@ -41,7 +41,7 @@ class Run(distanceMeters: Float, topSpeed: Float, durationSeconds: Long, speedSa
         this.durationSeconds = durationSeconds
         this.speedSamples = speedSamples
         val date = LocalDateTime.now()
-        this.endOfTheRun = date.toLocalDate().toString() + " - " + timeOfDay(date)
+        this.endOfTheRun = date.toLocalDate().toString() + "\n" + timeOfDay(date)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

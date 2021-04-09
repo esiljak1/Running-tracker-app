@@ -28,12 +28,7 @@ class RunDetailFragment : Fragment() {
     private lateinit var back_btn: ImageButton
     private lateinit var chart_speed_samples: LineChart
 
-    private val backListener = object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            activity!!.onBackPressed()
-        }
-
-    }
+    private val backListener = View.OnClickListener { requireActivity().onBackPressed() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view =  inflater.inflate(R.layout.fragment_run_detail, container, false)
@@ -111,6 +106,8 @@ class RunDetailFragment : Fragment() {
                 .setPositiveButton("Close") { dialog, which ->
                 }
                 .show()
+
+        (requireActivity() as MainActivity).delayedHide(100)
     }
 
 }

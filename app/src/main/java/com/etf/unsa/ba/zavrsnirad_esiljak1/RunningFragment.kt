@@ -111,7 +111,9 @@ class RunningFragment : Fragment(), MapUIInterface {
 
                 handlerLocation.stop()
 
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.running_view, runDetailFragment).commit()
+                val fm = requireActivity().supportFragmentManager
+
+                fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.running_view, runDetailFragment).commit()
             }
             .setNegativeButton("No") {dialog, which ->
             }

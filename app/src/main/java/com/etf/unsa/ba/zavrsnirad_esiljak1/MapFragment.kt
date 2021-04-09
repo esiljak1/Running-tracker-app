@@ -35,13 +35,13 @@ class MapFragment : Fragment(), MapUIInterface {
         val fragment = RunningFragment()
         val fm = requireActivity().supportFragmentManager
 
-        fm.beginTransaction().replace(R.id.view, fragment, "running").addToBackStack(null).commit()
+        fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.view, fragment, "running").addToBackStack(null).commit()
     }
     private val myRunsFragmentOnClick = View.OnClickListener {
         val fragment = MyRunsFragment()
         val fm = requireActivity().supportFragmentManager
 
-        fm.beginTransaction().replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
+        fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
     }
     private val settingsFragmentOnClick = View.OnClickListener {
         Toast.makeText(requireActivity(), "Srry Nejra ovo još ne radi", Toast.LENGTH_LONG).show()
