@@ -1,8 +1,0 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory app:title = "Battery saving">
-        <SwitchPreference android:key="saving_battery" android:title="Enable battery saving"/>
-    </PreferenceCategory>
-
-</PreferenceScreen>

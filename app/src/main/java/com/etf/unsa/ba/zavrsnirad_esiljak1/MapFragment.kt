@@ -43,7 +43,7 @@ class MapFragment : Fragment(), MapUIInterface {
 
         fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
     }
-    private val settingsFragmentOnClick = View.OnClickListener {
+    private val aboutFragmentOnClick = View.OnClickListener {
         Toast.makeText(requireActivity(), "Srry Nejra ovo još ne radi", Toast.LENGTH_LONG).show()
     }
     private val callback = OnMapReadyCallback { googleMap ->
@@ -52,7 +52,7 @@ class MapFragment : Fragment(), MapUIInterface {
 
     private lateinit var myRunsButton: AppCompatButton
     private lateinit var runButton: FloatingActionButton
-    private lateinit var settingsButton: ImageButton
+    private lateinit var aboutButton: ImageButton
     private val locationHandler = HandlerLocation.instance
 
     override fun onCreateView(
@@ -62,17 +62,24 @@ class MapFragment : Fragment(), MapUIInterface {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_map, container, false)
 
-        Toast.makeText(requireActivity(), "Welcome " + getCurrentUser().userName, Toast.LENGTH_SHORT).show()
+        if(!(requireActivity() as MainActivity).isInitiated) {
+            Toast.makeText(
+                requireActivity(),
+                "Welcome " + getCurrentUser().userName,
+                Toast.LENGTH_SHORT
+            ).show()
+            (requireActivity() as MainActivity).isInitiated = true
+        }
 
         runButton = view.findViewById(R.id.btn_run)
-        settingsButton = view.findViewById(R.id.settings_btn)
+        aboutButton = view.findViewById(R.id.settings_btn)
         myRunsButton = view.findViewById(R.id.my_runs_btn)
 
         runButton.scaleType = ImageView.ScaleType.FIT_CENTER
         runButton.setOnClickListener(newRunFragmentOnClick)
 
         myRunsButton.setOnClickListener(myRunsFragmentOnClick)
-        settingsButton.setOnClickListener(settingsFragmentOnClick)
+        aboutButton.setOnClickListener(aboutFragmentOnClick)
 
         locationHandler.ui = this
         locationHandler.start()
