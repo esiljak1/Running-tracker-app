@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
 
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             val fm = supportFragmentManager
             if(currentUser == null){
                 fragment = fm.findFragmentByTag("login")

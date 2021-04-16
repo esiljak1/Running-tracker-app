@@ -1,8 +1,10 @@
 package com.etf.unsa.ba.zavrsnirad_esiljak1
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MapFragment : Fragment(), MapUIInterface {
 
+    private val URL = "https://github.com/esiljak1/ZavrsniRad-esiljak1"
     private val PERMISSION_FINE_LOCATION: Int = 99
     private val ZOOM_LEVEL: Float = 19.5f
     private var isInitiated = false
@@ -44,7 +47,7 @@ class MapFragment : Fragment(), MapUIInterface {
         fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.view, fragment, "myRuns").addToBackStack(null).commit()
     }
     private val aboutFragmentOnClick = View.OnClickListener {
-        Toast.makeText(requireActivity(), "Srry Nejra ovo još ne radi", Toast.LENGTH_LONG).show()
+        openAbout()
     }
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
@@ -72,7 +75,7 @@ class MapFragment : Fragment(), MapUIInterface {
         }
 
         runButton = view.findViewById(R.id.btn_run)
-        aboutButton = view.findViewById(R.id.settings_btn)
+        aboutButton = view.findViewById(R.id.about_btn)
         myRunsButton = view.findViewById(R.id.my_runs_btn)
 
         runButton.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -87,6 +90,12 @@ class MapFragment : Fragment(), MapUIInterface {
         (requireActivity() as MainActivity).delayedHide(100)
 
         return view
+    }
+
+    private fun openAbout(){
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL))
+
+        startActivity(intent)
     }
 
     private fun getCurrentUser() : User{

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +47,7 @@ class RunningFragment : Fragment(), MapUIInterface {
     private lateinit var runnable: Runnable
     private val handlerLocation = HandlerLocation.instance
 
-    private val handlerSpeedSamples: Handler = Handler()
+    private val handlerSpeedSamples: Handler = Handler(Looper.getMainLooper())
     private lateinit var runnableSpeedSamples: Runnable
 
     private val startRunListener = View.OnClickListener {
@@ -133,7 +134,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         stop_btn = view.findViewById(R.id.stop_btn)
         lock_btn = view.findViewById(R.id.lock_btn)
 
-        handler = Handler()
+        handler = Handler(Looper.getMainLooper())
         runnable = object : Runnable{
             override fun run() {
                 val seconds = (elapsedTime % 60).toInt()
