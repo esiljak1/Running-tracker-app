@@ -17,7 +17,11 @@ class HandlerLocation private constructor() {
                 field = value
             }
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
-    private val locationRequest = LocationRequest()
+    private val locationRequest = LocationRequest.create().apply{
+        interval = 1000 * locationInterval
+        fastestInterval = 1000 * locationFastestInterval
+        priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+    }
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
@@ -30,11 +34,6 @@ class HandlerLocation private constructor() {
     }
 
     fun start(){
-        locationRequest.interval = 1000 * locationInterval
-        locationRequest.fastestInterval = 1000 * locationFastestInterval
-
-        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-
         updateGPS()
         startLocationUpdates()
     }
