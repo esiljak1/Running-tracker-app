@@ -52,8 +52,8 @@ class HandlerLocation private constructor() {
                 if(p0 != null)
                     ui!!.updateUIValues(p0)
                 else{
-                    //restart lokacije kod prvog pokretanja da se dobro pokupi aplikacija
-                        //moze predstavljat problem uredjajima koji nemaju pristup lokaciji, beskonacna petlja
+                    //Privremeno rješenje: restart lokacije kod prvog pokretanja da se dobro pokupi aplikacija
+                        //moze predstavljati problem uredjajima koji nemaju pristup lokaciji, beskonacna petlja
                     stop()
                     start()
                 }
@@ -64,7 +64,8 @@ class HandlerLocation private constructor() {
     }
 
     private fun startLocationUpdates(){
-        if (ActivityCompat.checkSelfPermission(ui!!.get()!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ui!!.get()!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(ui!!.get()!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(ui!!.get()!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
 

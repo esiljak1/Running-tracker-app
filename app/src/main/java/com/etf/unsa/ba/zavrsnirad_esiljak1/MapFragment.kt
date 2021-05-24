@@ -96,6 +96,9 @@ class MapFragment : Fragment(), MapUIInterface {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL))
 
         startActivity(intent)
+        //closing app
+        requireActivity().finish()
+        System.exit(0)
     }
 
     private fun getCurrentUser() : User{

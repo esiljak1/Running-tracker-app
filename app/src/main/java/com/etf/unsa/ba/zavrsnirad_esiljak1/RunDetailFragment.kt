@@ -86,7 +86,7 @@ class RunDetailFragment : Fragment() {
             i += 10
         }
 
-        val lineDataSet =  LineDataSet(entries, "Data Set 1")
+        val lineDataSet =  LineDataSet(entries, "Speed samples")
         lineDataSet.color = Color.YELLOW
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(lineDataSet)

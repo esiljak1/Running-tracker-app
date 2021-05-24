@@ -211,10 +211,10 @@ class RunningFragment : Fragment(), MapUIInterface {
         if(isStopped) return
 
         tv_distance.text = String.format("%.2f", totalDistance/1000)
-        currentSpeed = location.speed
+        currentSpeed = (location.speed * TO_KMPH).toFloat()
         if(currentSpeed > topSpeed)
             topSpeed = currentSpeed
-        tv_speed.text = String.format("%.2f", location.speed * TO_KMPH)
+        tv_speed.text = String.format("%.2f", location.speed)
     }
 
     override fun postLocationCallback(locationResult: LocationResult) {
