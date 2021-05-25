@@ -86,7 +86,7 @@ class RunDetailFragment : Fragment() {
             i += 10
         }
 
-        val lineDataSet =  LineDataSet(entries, "Speed samples")
+        val lineDataSet =  LineDataSet(entries, getString(R.string.speed_samples))
         lineDataSet.color = Color.YELLOW
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(lineDataSet)
@@ -102,7 +102,7 @@ class RunDetailFragment : Fragment() {
         val builder = AlertDialog.Builder(context)
 
         builder.setTitle("You're not connected to the internet")
-                .setMessage("Please connect to the internet in order to save your run")
+                .setMessage(R.string.connect_to_internet)
                 .setPositiveButton("Close") { dialog, which ->
                 }
                 .show()

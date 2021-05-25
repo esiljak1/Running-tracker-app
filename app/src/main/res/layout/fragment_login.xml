@@ -10,7 +10,7 @@
         android:layout_height="150dp"
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/soy_regular"
-        android:text="Login to continue"
+        android:text="@string/login"
         android:textColor="@color/black"
         android:textSize="18pt"
         android:textStyle="bold"
@@ -24,9 +24,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:fontFamily="@font/soy_regular"
         android:textAlignment="center"
-        android:text="In order to use this\n app you need to\n
-sign in with google.\n\n Please do so by clicking\n
-the button below."
+        android:text="@string/steps_to_login"
         android:textColor="@color/white"
         android:textSize="16pt"
         android:textStyle="bold" />

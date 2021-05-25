@@ -57,7 +57,7 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
     override fun onSuccess(snapshot: DataSnapshot?) {
         runList.clear()
         if(snapshot == null) {
-            Toast.makeText(requireActivity(), "No runs found for this account", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.no_runs, Toast.LENGTH_SHORT).show()
             return
         }
         for(item in snapshot.children){
@@ -69,6 +69,6 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
     }
 
     override fun onFailure() {
-        Toast.makeText(requireActivity(), "Failed to load myRuns", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireActivity(), R.string.failed_runs, Toast.LENGTH_SHORT).show()
     }
 }

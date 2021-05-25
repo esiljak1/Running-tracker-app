@@ -14,7 +14,7 @@
         android:clickable="false"
         android:fontFamily="@font/soy_regular"
         android:paddingTop="45dp"
-        android:text="My Runs"
+        android:text="@string/my_runs"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18pt"

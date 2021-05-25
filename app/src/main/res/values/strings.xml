@@ -19,4 +19,43 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!--    Login Fragment-->
+    <string name="login">Log in to continue</string>
+    <string name="steps_to_login">In order to use this<br/>
+        app you need to<br/>
+        sign in with google.<br/>
+        <br/>
+        Please do so by clicking<br/>
+        the button below.</string>
+
+    <!--    MyRuns Fragment-->
+    <string name="my_runs">My Runs</string>
+    <string name="no_runs">No runs found for this account</string>
+    <string name="failed_runs">Failed to load myRuns</string>
+
+    <!--    RunDetail Fragment-->
+    <string name="run_name">Name of the run</string>
+    <string name="distance">Distance</string>
+    <string name="duration">Duration</string>
+    <string name="fastest_speed">Fastest Speed</string>
+    <string name="speed_samples">Speed samples</string>
+    <string name="connect_to_internet">Please connect to the internet in order to save your run</string>
+
+    <!--    Running Fragment-->
+    <string name="time">Time</string>
+    <string name="speed">Speed</string>
+    <string name="locked">Locked</string>
+    <string name="unlocked">Unlocked</string>
+    <string name="lock">Are you sure that you want to lock your screen</string>
+    <string name="unlock">Are you sure that you want to unlock your screen</string>
+    <string name="end_run">Are you sure that you want to end your workout</string>
+
+    <!--    Map Fragment-->
+    <string name="welcome">Welcome</string>
+
+    <!--    Login Fragment-->
+    <string name="auth_failed">Authentication failed</string>
+
+    <string name="no_permission">App doesn\'t have permission to use location</string>
 </resources>

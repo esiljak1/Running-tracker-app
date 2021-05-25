@@ -52,7 +52,7 @@ class RunningFragment : Fragment(), MapUIInterface {
 
     private val startRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(requireActivity(), "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.locked, Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -66,7 +66,7 @@ class RunningFragment : Fragment(), MapUIInterface {
     }
     private val pauseRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(requireActivity(), "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.locked, Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
@@ -89,14 +89,14 @@ class RunningFragment : Fragment(), MapUIInterface {
 
     private val stopRunListener = View.OnClickListener {
         if(isLocked) {
-            Toast.makeText(requireActivity(), "Locked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.locked, Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
 
         val builder = AlertDialog.Builder(context)
 
         builder.setTitle("Ending workout")
-            .setMessage("Are you sure that you want to end your workout")
+            .setMessage(R.string.end_run)
             .setPositiveButton("Yes") { dialog, which ->
                 isStopped = true
                 val runDetailFragment = RunDetailFragment()
@@ -181,7 +181,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         val builder = AlertDialog.Builder(context)
 
         builder.setTitle("Locking screen")
-                .setMessage("Are you sure that you want to lock your screen")
+                .setMessage(R.string.lock)
                 .setPositiveButton("Yes") { dialog, which ->
                                                     isLocked = true
                                                     lock_btn.setBackgroundResource(R.drawable.ic_baseline_lock_24)
@@ -196,7 +196,7 @@ class RunningFragment : Fragment(), MapUIInterface {
         val builder = AlertDialog.Builder(context)
 
         builder.setTitle("Unlocking screen")
-                .setMessage("Are you sure that you want to unlock your screen")
+                .setMessage(R.string.unlock)
                 .setPositiveButton("Yes") { dialog, which ->
                                                     isLocked = false
                                                     lock_btn.setBackgroundResource(R.drawable.ic_baseline_lock_open_24)
@@ -253,7 +253,7 @@ class RunningFragment : Fragment(), MapUIInterface {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 handlerLocation.updateGPS()
             }else{
-                Toast.makeText(requireActivity(), "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.no_permission, Toast.LENGTH_SHORT).show()
                 requireActivity().finish()
             }
         }

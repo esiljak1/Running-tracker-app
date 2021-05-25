@@ -68,7 +68,7 @@ class MapFragment : Fragment(), MapUIInterface {
         if(!(requireActivity() as MainActivity).isInitiated) {
             Toast.makeText(
                 requireActivity(),
-                "Welcome " + getCurrentUser().userName,
+                getString(R.string.welcome) + getCurrentUser().userName,
                 Toast.LENGTH_SHORT
             ).show()
             (requireActivity() as MainActivity).isInitiated = true
@@ -150,7 +150,7 @@ class MapFragment : Fragment(), MapUIInterface {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 locationHandler.updateGPS()
             }else{
-                Toast.makeText(activity, "App doesn't have permission to use location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.no_permission, Toast.LENGTH_SHORT).show()
             }
         }
     }

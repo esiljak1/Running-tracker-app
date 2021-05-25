@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
                     val user = mAuth.currentUser!!
                     openMapFragment(User(user.uid, user.displayName!!, user.email!!))
                 }else{
-                    Toast.makeText(requireActivity(), "Authentication failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.auth_failed, Toast.LENGTH_SHORT).show()
                 }
             }
     }
