@@ -16,6 +16,9 @@ class HandlerLocation private constructor() {
             set(value) {
                 field = value
             }
+    companion object{
+        val instance = HandlerLocation()
+    }
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private val locationRequest = LocationRequest.create().apply{
         interval = 1000 * locationInterval
@@ -29,9 +32,7 @@ class HandlerLocation private constructor() {
         }
     }
 
-    companion object{
-        val instance = HandlerLocation()
-    }
+
 
     fun start(){
         updateGPS()

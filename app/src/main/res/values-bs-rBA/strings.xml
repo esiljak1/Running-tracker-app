@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZavrsniRad-esiljak1</string>
+    <string name="login">Prijava za nastavak</string>
+    <string name="steps_to_login">Da biste koristili<br />    ovu aplikaciju morate<br />    se prijaviti s googleom.<br />        <br />        Uradite to pritiskom<br />        na dugme ispod.</string>
+    <string name="my_runs">Moja trcanja</string>
+    <string name="no_runs">Trcanja za ovaj racun ne postoje</string>
+    <string name="failed_runs">Greska pri ucitavanju mojih trcanja</string>
+    <string name="run_name">Naziv trcanja</string>
+    <string name="distance">Distanca</string>
+    <string name="duration">Trajanje</string>
+    <string name="fastest_speed">Najveca brzina</string>
+    <string name="speed_samples">Uzorci brzine</string>
+    <string name="connect_to_internet">Molim vas povežite se na internet da biste spremili vaše trčanje</string>
+    <string name="time">Vrijeme</string>
+    <string name="speed">Brzina</string>
+    <string name="locked">Zaključano</string>
+    <string name="unlocked">Otključano</string>
+    <string name="lock">Da li ste sigurni da želite zaključati vaš ekran</string>
+    <string name="unlock">Da li ste sigurni da želite otključati vaš ekran</string>
+    <string name="end_run">Da li ste sigurni da želite završiti vašu vježbu</string>
+    <string name="welcome">Dobrodošli</string>
+    <string name="auth_failed">Greška prilikom autentikacije</string>
+    <string name="no_permission">Aplikacija nema dozvolu pristupa lokaciji uređaja</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_fullscreen">ZavrsniRad-esiljak1</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY</string>
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+</resources>

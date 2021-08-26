@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZavrsniRad-esiljak1</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_fullscreen">ZavrsniRad-esiljak1</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY</string>
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="login">Einloggen um fortzufahren</string>
+    <string name="my_runs">Meine läuft</string>
+    <string name="no_runs">Keine Läufe für dieses Konto gefunden</string>
+    <string name="failed_runs">Fehler beim Laden meiner Läufe</string>
+    <string name="run_name">Name des Laufs</string>
+    <string name="distance">Distanz</string>
+    <string name="duration">Dauer</string>
+    <string name="fastest_speed">Schnellste Geschwindigkeit</string>
+    <string name="speed_samples">Geschwindigkeitsproben</string>
+    <string name="time">Zeit</string>
+    <string name="speed">Geschwindigkeit</string>
+    <string name="locked">Gesperrt</string>
+    <string name="unlocked">Entsperrt</string>
+    <string name="lock">Möchten Sie Ihren Bildschirm wirklich sperren?</string>
+    <string name="unlock">Möchten Sie Ihren Bildschirm wirklich entsperren?</string>
+    <string name="end_run">Möchten Sie Ihr Training wirklich beenden?</string>
+    <string name="welcome">Willkommen</string>
+    <string name="auth_failed">Authentifizierung fehlgeschlagen</string>
+    <string name="no_permission">App hat keine Berechtigung zum Verwenden des Standorts</string>
+    <string name="connect_to_internet">Bitte verbinde dich mit dem Internet, um deinen Lauf zu speichern</string>
+    <string name="steps_to_login">Um diese App<br /> nutzen zu können, <br /> müssen Sie sich bei Google anmelden. <br /> <br /> Drücke dazu den <br /> untenstehenden Button</string>
+</resources>

@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                     fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             }
-        }, 2500)
+        }, 2000)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
