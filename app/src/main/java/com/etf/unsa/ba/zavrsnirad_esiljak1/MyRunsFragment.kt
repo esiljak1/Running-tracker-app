@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ba.zavrsnirad_esiljak1.R
@@ -22,6 +23,7 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
     private lateinit var numberOfRuns: TextView
     private lateinit var lifetimeTime: TextView
     private lateinit var profile: TextView
+    private lateinit var loadingView: ConstraintLayout
 
     private val onClickListener =  View.OnClickListener{
         requireActivity().onBackPressed()
@@ -36,7 +38,9 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
         numberOfRuns = view.findViewById(R.id.numberOfRuns_tw)
         lifetimeTime = view.findViewById(R.id.lifetimeTime_tw)
         profile = view.findViewById(R.id.profile_tw)
+        loadingView = view.findViewById(R.id.loadingView)
 
+        loadingView.visibility = View.VISIBLE
         FirebaseDBInteractor.instance.getMyRuns(getCurrentUser().uuid!!, this)
         profile.text = getInitials()
 
@@ -97,6 +101,7 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
         var seconds = 0L
         runList.forEach{ run -> seconds += run.durationSeconds }
         formatTime(seconds)
+        loadingView.visibility = View.GONE
     }
 
     override fun onSuccess(snapshot: DataSnapshot?) {
