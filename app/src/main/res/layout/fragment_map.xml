@@ -53,7 +53,7 @@
         android:theme="@color/black"
         android:fontFamily="@font/soy_regular"
         android:scaleType="centerInside"
-        android:text="My\nruns"
+        android:text="My\nprofile"
         android:textColor="#fff700"
         android:textSize="10dp"
         android:textStyle="bold"

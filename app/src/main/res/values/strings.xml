@@ -22,11 +22,11 @@
 
     <!--    Login Fragment-->
     <string name="login">Log in to continue</string>
-    <string name="steps_to_login">In order to use this<br/>
-        app you need to<br/>
-        sign in with google.<br/>
-        <br/>
-        Please do so by clicking<br/>
+    <string name="steps_to_login">In order to use this<br />
+        app you need to<br />
+        sign in with google.<br />
+        <br />
+        Please do so by clicking<br />
         the button below.</string>
 
     <!--    MyRuns Fragment-->

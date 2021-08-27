@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,10 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var backButton: ImageButton
+    private lateinit var lifetimeDistance: TextView
+    private lateinit var numberOfRuns: TextView
+    private lateinit var lifetimeTime: TextView
+    private lateinit var profile: TextView
 
     private val onClickListener =  View.OnClickListener{
         requireActivity().onBackPressed()
@@ -27,11 +32,26 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
 
         recyclerView = view.findViewById(R.id.recycler_view)
         backButton = view.findViewById(R.id.back_btn_my_runs)
+        lifetimeDistance = view.findViewById(R.id.lifetimeDistance_tw)
+        numberOfRuns = view.findViewById(R.id.numberOfRuns_tw)
+        lifetimeTime = view.findViewById(R.id.lifetimeTime_tw)
+        profile = view.findViewById(R.id.profile_tw)
+
         FirebaseDBInteractor.instance.getMyRuns(getCurrentUser().uuid!!, this)
+        profile.text = getInitials()
 
         backButton.setOnClickListener(onClickListener)
 
         return view
+    }
+
+    private fun getInitials(): String{
+        val tempList = getCurrentUser().userName.split(" ")
+        var ret = ""
+        for(s in tempList){
+            ret += s.toUpperCase()[0]
+        }
+        return ret
     }
 
     private fun setAdapter(){
@@ -48,10 +68,35 @@ class MyRunsFragment : Fragment(), DatabaseInterface {
             fragment.arguments = bundle
             fm.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left).replace(R.id.view, fragment, "detail").addToBackStack(null).commit()
         }
+        setupUIParameters()
     }
 
     private fun getCurrentUser(): User{
         return (requireActivity() as MainActivity).user!!
+    }
+
+    private fun formatTime(time: Long) {
+        val seconds = (time % 60).toInt()
+        var minutes = (time / 60).toInt()
+        val hours = minutes / 60
+        minutes %= 60
+
+        if(hours != 0){
+            lifetimeTime.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        }else{
+            lifetimeTime.text = String.format("%02d:%02d", minutes, seconds)
+        }
+    }
+
+    private fun setupUIParameters(){
+        numberOfRuns.text = runList.size.toString()
+        var dist = 0f
+        runList.forEach{ run -> dist += run.distanceMeters }
+        lifetimeDistance.text = String.format("%.2f", dist / 1000.0)
+
+        var seconds = 0L
+        runList.forEach{ run -> seconds += run.durationSeconds }
+        formatTime(seconds)
     }
 
     override fun onSuccess(snapshot: DataSnapshot?) {

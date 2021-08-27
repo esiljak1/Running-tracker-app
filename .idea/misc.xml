@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/ZavrsniRadesiljak1/app/src/main/res/drawable/initials_img.xml" value="0.3828125" />
         <entry key="..\:/AndroidStudioProjects/ZavrsniRadesiljak1/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/ZavrsniRadesiljak1/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidStudioProjects/ZavrsniRadesiljak1/app/src/main/res/layout/fragment_my_runs.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjects/ZavrsniRadesiljak1/app/src/main/res/layout/fragment_running.xml" value="0.28125" />
+        <entry key="..\:/AndroidStudioProjects/ZavrsniRadesiljak1/app/src/main/res/layout/fragment_user_info.xml" value="0.35260416666666666" />
       </map>
     </option>
   </component>

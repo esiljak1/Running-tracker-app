@@ -28,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MapFragment : Fragment(), MapUIInterface {
 
-    private val URL = "https://github.com/esiljak1/ZavrsniRad-esiljak1"
+    private val URL = "https://github.com/esiljak1/Running-tracker-app"
     private val PERMISSION_FINE_LOCATION: Int = 99
     private val ZOOM_LEVEL: Float = 19.5f
     private var isInitiated = false
