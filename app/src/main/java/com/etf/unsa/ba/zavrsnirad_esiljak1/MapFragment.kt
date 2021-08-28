@@ -68,7 +68,7 @@ class MapFragment : Fragment(), MapUIInterface {
         if(!(requireActivity() as MainActivity).isInitiated) {
             Toast.makeText(
                 requireActivity(),
-                getString(R.string.welcome) + getCurrentUser().userName,
+                getString(R.string.welcome) + " " + getCurrentUser().userName,
                 Toast.LENGTH_SHORT
             ).show()
             (requireActivity() as MainActivity).isInitiated = true
